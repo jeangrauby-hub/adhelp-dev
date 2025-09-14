@@ -512,47 +512,27 @@
     }, 2500);
   }
 
-  function confirmBeforeClose(onSave, onDiscard, onCancel){
-    var overlay = document.createElement('div');
-    Object.assign(overlay.style, {
-      position:'absolute', inset:'0', background:'rgba(0,0,0,.25)',
-      display:'flex', alignItems:'center', justifyContent:'center', zIndex:'1002'
-    });
+function confirmBeforeClose(onSave, onDiscard){
+  const overlay = document.getElementById("unsavedConfirm");
+  const btnNo   = document.getElementById("unsavedNo");
+  const btnYes  = document.getElementById("unsavedYes");
 
-    var box = document.createElement('div');
-    box.innerHTML = '<div style="font-weight:600;margin-bottom:10px">Enregistrer vos modifications ?</div>\
-    <div style="color:#374151;margin-bottom:14px;font-size:13px">Si vous n’enregistrez pas, vos changements seront perdus.</div>';
-    Object.assign(box.style, {
-      background:'#fff', border:'1px solid #e5e7eb', borderRadius:'10px',
-      padding:'16px', width:'340px', boxShadow:'0 12px 28px rgba(0,0,0,.18)', color:'#0b121e'
-    });
+  overlay.style.display = "flex";
+  // Assure que la modale de confirmation passe au-dessus de la modale Ticket
+  const z = parseInt((modalEl && modalEl.style.zIndex) || 1000, 10);
+  overlay.style.zIndex = String(z + 1);
 
-    var row = document.createElement('div');
-    Object.assign(row.style, {display:'flex', gap:'8px', justifyContent:'flex-end'});
-
-    var bSave = document.createElement('button');
-    bSave.textContent = 'Enregistrer';
-    Object.assign(bSave.style,{background:'#4f46e5',color:'#fff',border:'none',borderRadius:'8px',padding:'8px 12px',cursor:'pointer',fontWeight:'600'});
-
-    var bDiscard = document.createElement('button');
-    bDiscard.textContent = 'Ne pas enregistrer';
-    Object.assign(bDiscard.style,{background:'#ecf0f7',color:'#0b121e',border:'none',borderRadius:'8px',padding:'8px 12px',cursor:'pointer',fontWeight:'600'});
-
-    var bCancel = document.createElement('button');
-    bCancel.textContent = 'Annuler';
-    Object.assign(bCancel.style,{background:'#fff',border:'1px solid #e5e7eb',borderRadius:'8px',padding:'8px 12px',cursor:'pointer'});
-
-    bSave.onclick = function(){ overlay.remove(); onSave && onSave(); };
-    bDiscard.onclick = function(){ overlay.remove(); onDiscard && onDiscard(); };
-    bCancel.onclick = function(){ overlay.remove(); onCancel && onCancel(); };
-
-    row.appendChild(bCancel);
-    row.appendChild(bDiscard);
-    row.appendChild(bSave);
-    box.appendChild(row);
-    overlay.appendChild(box);
-    modalEl.appendChild(overlay);
+  function cleanup() {
+    overlay.style.display = "none";
+    btnNo.removeEventListener("click", onNo);
+    btnYes.removeEventListener("click", onYes);
   }
+  function onNo()  { cleanup(); if (onDiscard) onDiscard(); }
+  function onYes() { cleanup(); if (onSave)   onSave(); }
+
+  btnNo.addEventListener("click", onNo,  { once:true });
+  btnYes.addEventListener("click", onYes, { once:true });
+}
 
   function collectTicketPayload(){
     var atts = (window.attachmentsManagerTicket && window.attachmentsManagerTicket.getAttachments
@@ -733,23 +713,22 @@
     });
   }
 
-  // Gestion fermeture (croix & clic fond) avec confirmation si dirty
-  var closeBtn = modalEl.querySelector('.close-btn');
-  function requestClose(){
-    if (!ticketDirty){
-      modalEl.style.display = 'none';
-      return;
-    }
-    confirmBeforeClose(
-      () => handleSaveAndClose(),            // Enregistrer
-      () => { ticketDirty=false; modalEl.style.display='none'; }, // Ne pas enregistrer
-      () => {}                               // Annuler
-    );
+// Gestion fermeture (croix & clic fond) avec confirmation si dirty
+var closeBtn = modalEl.querySelector('.close-btn');
+function requestClose(){
+  if (!ticketDirty){
+    modalEl.style.display = 'none';
+    return;
   }
-  closeBtn && closeBtn.addEventListener('click', (e) => { e.preventDefault(); requestClose(); });
-  modalEl.addEventListener('click', function (e) {
-    if (e.target === modalEl) requestClose();
-  });
+  confirmBeforeClose(
+    () => handleSaveAndClose(),                                  // Enregistrer
+    () => { ticketDirty=false; modalEl.style.display='none'; }   // Ne pas enregistrer
+  );
+}
+closeBtn && closeBtn.addEventListener('click', (e) => { e.preventDefault(); requestClose(); });
+modalEl.addEventListener('click', function (e) {
+  if (e.target === modalEl) requestClose();
+});
 
   // Bouton Enregistrer
   btnSave && btnSave.addEventListener('click', function(e){

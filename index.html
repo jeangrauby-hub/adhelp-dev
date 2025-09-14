@@ -75,11 +75,10 @@
   /* Modales génériques */
   .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center}
   .modal-content{background:white;border-radius:12px;width:90%;max-width:500px;max-height:80vh;overflow:hidden}
-  .modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .modal-header{padding:16px 20px 4px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
   .modal-header h3{margin:0;font-size:18px}
   .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#666}
-  .modal-body{padding:20px;max-height:60vh;overflow-y:auto}
-
+  .modal-body{padding:4px 20px 20px;max-height:60vh;overflow-y:auto}
   /* Modale "Ticket" / "Article" / "Support" */
   .modal-ticket{background:#f1f8fe;width:900px;max-width:95vw;height:95vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.3);color:#0b121e;display:flex;flex-direction:column;padding:20px;gap:15px;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
   #suggestionsModal{z-index:1100}
@@ -241,6 +240,27 @@
   .date-cell .time-part{
     font-size:12px;
     color:#374151;
+  }
+
+  /* Centrage colonne Statut (liste Tickets uniquement) */
+  #ticketsView table th.col-status { text-align: center; }
+  #ticketsView table tbody td:nth-child(4) { text-align: center; }
+
+  /* ===== Modale confirmation "Enregistrer ?" (2 boutons) ===== */
+  #unsavedConfirm.modal-overlay { display:none; }
+  #unsavedConfirm .modal-content { width: 420px; max-width: 92vw; }
+  #unsavedConfirm .modal-body { padding: 20px; }
+  #unsavedConfirm .modal-actions {
+    display:flex; gap:10px; justify-content:flex-end;
+    padding:12px 20px; border-top:1px solid var(--border);
+  }
+  /* mêmes styles + animation hover sur les 2 boutons */
+  #unsavedConfirm .btn-cancel, #unsavedConfirm .btn-save {
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  #unsavedConfirm .btn-cancel:hover, #unsavedConfirm .btn-save:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.10);
   }
 
 </style>
@@ -770,9 +790,46 @@
   </div>
 </div>
 
+<!-- Modale confirmation Enregistrer (2 boutons) -->
+<div class="modal-overlay" id="unsavedConfirm" style="display:none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Enregistrer vos modifications ?</h3>
+    </div>
+    <div class="modal-body">
+      <p>Si vous n’enregistrez pas, vos changements seront perdus.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="unsavedNo">Ne pas enregistrer</button>
+      <button class="btn-save"   id="unsavedYes">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
 <!-- Scripts principaux (ordre corrigé) -->
 <!-- 1) settings d'abord : expose helpers + contactsData -->
 <script src="js/settings.js"></script>
+
+<script>
+  // Ouvre la modale et renvoie: true = Enregistrer, false = Ne pas enregistrer
+  function showUnsavedConfirm() {
+    return new Promise((resolve) => {
+      const overlay = document.getElementById('unsavedConfirm');
+      const yes = document.getElementById('unsavedYes');
+      const no  = document.getElementById('unsavedNo');
+
+      overlay.style.display = 'flex';
+
+      const onYes = () => { cleanup(); resolve(true); };
+      const onNo  = () => { cleanup(); resolve(false); };
+
+      yes.addEventListener('click', onYes, { once:true });
+      no .addEventListener('click', onNo,  { once:true });
+
+      function cleanup() { overlay.style.display = 'none'; }
+    });
+  }
+</script>
 
 <!-- 2) le reste de l'app -->
 <script src="js/app.js"></script>
