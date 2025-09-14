@@ -5,8 +5,8 @@
   "description": "ADHELP - Système de gestion de tickets",
   "type": "module",
   "scripts": {
-    "dev": "npx kill-port 5173 >/dev/null 2>&1 || true && live-server --port=5173 --open=index.html --watch=.",
-    "serve": "live-server --port=5173 --open=index.html --watch=.",
+    "dev": "echo \"Bolt preview: ouvrir index.html directement\"",
+    "start": "echo \"Bolt preview: ouvrir index.html directement\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["tickets", "helpdesk", "support"],
@@ -18,7 +18,6 @@
     "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
-    "kill-port": "^2.0.1",
-    "live-server": "^1.2.2"
+    "kill-port": "^2.0.1"
   }
 }
