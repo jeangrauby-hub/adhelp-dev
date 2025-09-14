@@ -1,0 +1,312 @@
+/* Styles pour le gestionnaire de pièces jointes */
+
+.attachments-container {
+  margin-top: 0;
+}
+
+.attachments-manager {
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--panel, #ffffff);
+}
+
+.attachments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.btn-attachment {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.btn-attachment:hover:not(:disabled) {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+.btn-attachment:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #f8fafc;
+}
+
+.attachments-quota {
+  font-size: 12px;
+  color: var(--muted, #6b7280);
+  font-weight: 500;
+}
+
+.attachments-dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  margin-top: 12px;
+  transition: all 0.2s;
+  background: #f8fafc;
+}
+
+.attachments-dropzone.dragover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropzone-icon {
+  font-size: 24px;
+  opacity: 0.6;
+}
+
+.dropzone-text {
+  font-weight: 500;
+  color: #374151;
+}
+
+.dropzone-hint {
+  font-size: 12px;
+  color: var(--muted, #6b7280);
+}
+
+.attachments-list {
+  margin: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.no-attachments {
+  text-align: center;
+  color: var(--muted, #6b7280);
+  font-style: italic;
+  padding: 20px;
+}
+
+.attachment-item-mini {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60px;
+  padding: 4px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  background: #ffffff;
+  position: relative;
+}
+
+.attachment-icon-mini {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.attachment-name-mini {
+  font-size: 10px;
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-all;
+  color: #374151;
+}
+
+.attachment-actions-mini {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 2;
+}
+
+.btn-remove-mini {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.btn-remove-mini:hover {
+  background: #dc2626;
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: #ffffff;
+  transition: all 0.2s;
+}
+
+.attachment-item:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.attachment-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.attachment-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.attachment-name {
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.attachment-meta {
+  font-size: 12px;
+  color: var(--muted, #6b7280);
+}
+
+.upload-progress {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #3b82f6;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 11px;
+  color: #6b7280;
+  min-width: 30px;
+}
+
+.status-success {
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-error {
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.attachment-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.attachment-actions button {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.attachment-actions button:hover {
+  background: #f3f4f6;
+}
+
+.btn-remove:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.btn-preview:hover {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.btn-download:hover {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .attachments-manager {
+    padding: 12px;
+  }
+  
+  .attachments-dropzone {
+    padding: 16px;
+  }
+  
+  .attachment-item {
+    padding: 8px;
+    gap: 8px;
+  }
+  
+  .attachment-actions {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .attachment-actions button {
+    padding: 4px;
+    font-size: 12px;
+  }
+}
+
+/* Notifications */
+.notification {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+.notification-success {
+  background-color: #16a34a !important;
+}
+
+.notification-error {
+  background-color: #dc2626 !important;
+}
+
+.notification-warning {
+  background-color: #f59e0b !important;
+}
+
+.notification-info {
+  background-color: #3b82f6 !important;
+}

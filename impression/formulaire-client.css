@@ -1,0 +1,104 @@
+/* A4 & impression */
+@page { size: A4 portrait; margin: 0; }
+@media print {
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Page A4 avec marges visuelles internes (calées PJ2) */
+.page.a4 {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 14mm 12mm 38mm; /* top, sides, bottom (place pour footer) */
+}
+
+/* Titre + logo */
+.header { position: relative; display: flex; align-items: center; gap: 10mm; }
+.logo { height: 18mm; object-fit: contain; }
+.header h1 { font-size: 16pt; font-weight: 700; margin: 0; }
+
+/* Trait horizontal sous le header */
+.rule {
+  border: none;
+  border-top: 1px solid #111;
+  margin: 6mm 0 5mm;
+}
+
+/* Filigrane géant (optionnel) */
+.watermark {
+  position: absolute;
+  left: 25mm;
+  top: 90mm;
+  width: 150mm;
+  opacity: 0.08;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Panneaux (cadres) */
+.panel {
+  position: relative;
+  z-index: 1;
+  border: 1px solid #333;
+  padding: 4mm;
+  margin-bottom: 5mm;
+  background: #fff;
+}
+
+.panel-title {
+  position: absolute;
+  top: -4mm;
+  left: 4mm;
+  padding: 0 2mm;
+  background: #fff;
+  font-weight: 700;
+  font-size: 11pt;
+  transform: translateY(-50%);
+}
+
+/* Grilles lignes/valeurs */
+.grid.grid-2 .row { display: grid; grid-template-columns: 35mm 1fr; column-gap: 6mm; align-items: start; margin: 2mm 0; }
+.grid.grid-1 .row { display: grid; grid-template-columns: 30mm 1fr; column-gap: 6mm; align-items: start; margin: 2mm 0; }
+
+.label { font-weight: 700; white-space: nowrap; }
+.value { white-space: pre-wrap; line-height: 1.25; }
+
+/* Ligne "Demande" multilignes avec min-height pour caler le bloc comme PJ2 */
+.row-multiline .value { min-height: 16mm; }
+
+/* Signature */
+.panel-sign .sign-wrap { position: relative; height: 32mm; display: flex; align-items: center; }
+.panel-sign img { max-height: 20mm; max-width: 70mm; object-fit: contain; display: none; }
+.sign-line { flex: 1; height: 0; border-top: 1px solid #222; margin-left: 8mm; }
+
+/* Footer vert */
+.footer {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 28mm;
+  background: #b3d334; /* ajuste la teinte exacte PJ2 si nécessaire */
+  color: #000;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+}
+.footer-inner { font-size: 8.5pt; line-height: 1.25; }
+.footer .small { font-size: 7.5pt; }
+
+/* Pages PJ (une photo par page) */
+.pj-wrap {
+  position: relative;
+  width: 100%; height: 100%;
+  padding: 18mm 12mm 28mm;
+  box-sizing: border-box;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.pj-img { max-width: 100%; max-height: calc(100% - 20mm); object-fit: contain; }
+.pj-caption { margin-top: 6mm; font-size: 10pt; }
+
+/* CGV: image pleine page */
+.cgv-img {
+  width: 210mm; height: 297mm; object-fit: cover;
+  display: block;
+}

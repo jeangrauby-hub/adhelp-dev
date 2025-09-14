@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Formulaire de dépôt de matériel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./formulaire-client.css" />
+
+  <!-- Police "system-ui" (sobre, sûre) ; si tu as la vraie police PJ2, tu peux l’intégrer en @font-face dans le CSS -->
+  <style>
+    html,body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 – Formulaire (mise en page PJ2) -->
+  <section class="page a4">
+    <!-- Haut: logo + titre -->
+    <header class="header">
+      <img class="logo" src="/assets/logo_adpomme.png" alt="ad-pomme" />
+      <h1>FORMULAIRE DE DÉPÔT DE MATÉRIEL</h1>
+    </header>
+
+    <hr class="rule" />
+
+    <!-- Filigrane géant (optionnel) -->
+    <img class="watermark" src="/assets/watermark_adpomme.png" alt="" />
+
+    <!-- Bloc: Infos dossier -->
+    <div class="panel">
+      <div class="panel-title">Informations dossier</div>
+      <div class="grid grid-2">
+        <div class="row">
+          <div class="label">N° Dossier&nbsp;:</div>
+          <div class="value" id="f_dossier"></div>
+        </div>
+        <div class="row">
+          <div class="label">Date de dépôt&nbsp;:</div>
+          <div class="value" id="f_depotAt"></div>
+        </div>
+        <div class="row">
+          <div class="label">Technicien&nbsp;:</div>
+          <div class="value" id="f_tech"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloc: Client / Contact -->
+    <div class="panel">
+      <div class="panel-title">Client / Contact</div>
+      <div class="grid grid-1">
+        <div class="row">
+          <div class="label">Client&nbsp;:</div>
+          <div class="value" id="f_client"></div>
+        </div>
+        <div class="row">
+          <div class="label">Contact&nbsp;:</div>
+          <div class="value" id="f_contact"></div>
+        </div>
+        <div class="row">
+          <div class="label">Liaison&nbsp;:</div>
+          <div class="value" id="f_liaison"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloc: Matériel / Demande -->
+    <div class="panel">
+      <div class="panel-title">Matériel / Demande</div>
+      <div class="grid grid-1">
+        <div class="row">
+          <div class="label">Matériel&nbsp;:</div>
+          <div class="value" id="f_materiel"></div>
+        </div>
+        <div class="row">
+          <div class="label">Accessoires&nbsp;:</div>
+          <div class="value" id="f_accessoires"></div>
+        </div>
+        <div class="row row-multiline">
+          <div class="label">Demande&nbsp;:</div>
+          <div class="value" id="f_demande"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloc: Signature -->
+    <div class="panel panel-sign">
+      <div class="panel-title">Signature client</div>
+      <div class="sign-wrap">
+        <img id="f_signature" alt="signature client" />
+        <div class="sign-line"></div>
+      </div>
+    </div>
+
+    <!-- Pied de page vert (mentions PJ2) -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="line1">
+          8 impasse Ratalens - 31240 St-Jean
+        </div>
+        <div class="line2">
+          tél&nbsp; 05 54 54 41 13 &nbsp;–&nbsp; mail&nbsp; infos@ad-pomme.fr &nbsp;–&nbsp; site&nbsp; www.ad-pomme.fr
+        </div>
+        <div class="line3">
+          SARL au capital de 8000 € &nbsp;•&nbsp; N° Siret 492 296 744 00039 &nbsp;•&nbsp; APE 4651Z
+        </div>
+        <div class="line4">
+          Coordonnées bancaires &nbsp; IBAN&nbsp; FR27 1144 9000 0101 3785 4001 M90 &nbsp;&nbsp; BIC&nbsp; BDEIFRPPXXX
+        </div>
+        <div class="line5 small">
+          Conditions générales de vente sur ad-pomme.fr
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- SECTION VIDES: elles seront clonées dynamiquement pour PJ & CGV -->
+  <template id="tpl-pj">
+    <section class="page a4">
+      <div class="pj-wrap">
+        <img class="pj-img" />
+        <div class="pj-caption"></div>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-cgv">
+    <section class="page a4">
+      <img class="cgv-img" />
+    </section>
+  </template>
+
+  <script>
+    // ---- Données de test par défaut (si rien en localStorage / postMessage) ----
+    const DEMO = {
+      dossierId: "TEST-123",
+      client: { nom: "BOULANGERIE DUPONT" },
+      contact: "Pierre Dupont",
+      liaison: "email",
+      materiel: "Caisse tactile",
+      accessoires: "Câble secteur",
+      demande: "Ne démarre plus. L'écran reste noir au démarrage, testé avec un autre câble.",
+      depotAt: "2025-08-31",
+      tech: "Guillaume",
+      signatureUrl: "/assets/signatures/sig_demo.png", // optionnel
+      // URLs d’images pour pièces jointes
+      attachments: [
+        // "/uploads/photo1.jpg",
+        // "/uploads/photo2.png",
+      ],
+      // CGV sous forme d’images (une URL par page)
+      cgvImages: [
+        // "/assets/CGV/cgv-1.png",
+        // "/assets/CGV/cgv-2.png"
+      ]
+    };
+
+    // ---- Récupération données ----
+    function readData() {
+      // 1) via localStorage
+      const LSK = "formulaireClientData";
+      const fromLS = localStorage.getItem(LSK);
+      if (fromLS) {
+        try { return JSON.parse(fromLS); } catch {}
+      }
+      // 2) sinon données de démo
+      return DEMO;
+    }
+
+    // ---- Remplir la page 1 ----
+    function fillPage1(d) {
+      const qs = (s)=>document.querySelector(s);
+      qs("#f_dossier").textContent = d.dossierId || "";
+      qs("#f_depotAt").textContent = d.depotAt || "";
+      qs("#f_tech").textContent    = d.tech || "";
+      qs("#f_client").textContent  = (d.client && d.client.nom) ? d.client.nom : "";
+      qs("#f_contact").textContent = d.contact || "";
+      qs("#f_liaison").textContent = d.liaison || "";
+      qs("#f_materiel").textContent = d.materiel || "";
+      qs("#f_accessoires").textContent = d.accessoires || "";
+      qs("#f_demande").textContent = d.demande || "";
+
+      const sig = document.getElementById("f_signature");
+      if (d.signatureUrl) {
+        sig.src = d.signatureUrl;
+        sig.style.display = "block";
+      } else {
+        sig.style.display = "none";
+      }
+    }
+
+    // ---- Générer pages PJ ----
+    function addPJs(attachments) {
+      if (!Array.isArray(attachments) || attachments.length === 0) return;
+      const tpl = document.getElementById("tpl-pj");
+      attachments.forEach((url, idx) => {
+        const node = tpl.content.cloneNode(true);
+        const img = node.querySelector(".pj-img");
+        const cap = node.querySelector(".pj-caption");
+        img.src = url;
+        cap.textContent = `Pièce jointe ${idx + 1}`;
+        document.body.appendChild(node);
+      });
+    }
+
+    // ---- Générer pages CGV (images pleine page) ----
+    function addCGV(imgs) {
+      if (!Array.isArray(imgs) || imgs.length === 0) return;
+      const tpl = document.getElementById("tpl-cgv");
+      imgs.forEach((url) => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector(".cgv-img").src = url;
+        document.body.appendChild(node);
+      });
+    }
+
+    // ---- Support postMessage (optionnel) : tu peux pousser les données depuis ta modale ----
+    window.addEventListener("message", (e) => {
+      if (!e.data || e.data.type !== "FORM_DATA") return;
+      const payload = e.data.payload || {};
+      render(payload);
+      setTimeout(() => window.print(), 300); // imprimante PDF
+    });
+
+    function render(data) {
+      fillPage1(data);
+      addPJs(data.attachments);
+      addCGV(data.cgvImages);
+    }
+
+    // ---- Boot ----
+    const DATA = readData();
+    render(DATA);
+
+    // Imprimer automatiquement si tu veux :
+    // setTimeout(() => window.print(), 400);
+  </script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+{
+  "clients": [
+    {
+      "id": "CLI-001",
+      "name": "TechnoSolutions SARL",
+      "address": {
+        "line1": "15 Avenue des Entrepreneurs",
+        "postalCode": "69003",
+        "city": "Lyon"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Client premium avec contrat de maintenance annuel"
+    },
+    {
+      "id": "CLI-002",
+      "name": "Cabinet Médical des Oliviers",
+      "address": {
+        "line1": "8 Rue de la Paix",
+        "postalCode": "13001",
+        "city": "Marseille"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Spécialisé en cardiologie, équipements sensibles"
+    },
+    {
+      "id": "CLI-003",
+      "name": "Boulangerie Artisanale Dupont",
+      "address": {
+        "line1": "42 Place du Marché",
+        "postalCode": "31000",
+        "city": "Toulouse"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Commerce de proximité, système de caisse moderne"
+    },
+    {
+      "id": "CLI-004",
+      "name": "Garage Automobile Renault",
+      "address": {
+        "line1": "156 Route Nationale",
+        "postalCode": "67000",
+        "city": "Strasbourg"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Concessionnaire officiel, logiciels métier spécialisés"
+    },
+    {
+      "id": "CLI-005",
+      "name": "École Primaire Saint-Exupéry",
+      "address": {
+        "line1": "23 Rue des Écoles",
+        "postalCode": "44000",
+        "city": "Nantes"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Établissement public, 12 classes, tableau interactif"
+    },
+    {
+      "id": "CLI-006",
+      "name": "Restaurant Le Gourmet",
+      "address": {
+        "line1": "7 Boulevard Victor Hugo",
+        "postalCode": "06000",
+        "city": "Nice"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Restaurant gastronomique, système de réservation en ligne"
+    },
+    {
+      "id": "CLI-007",
+      "name": "Pharmacie de la Gare",
+      "address": {
+        "line1": "89 Avenue de la Gare",
+        "postalCode": "35000",
+        "city": "Rennes"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Pharmacie de garde, logiciel de gestion des ordonnances"
+    },
+    {
+      "id": "CLI-008",
+      "name": "Agence Immobilière Prestige",
+      "address": {
+        "line1": "34 Cours Mirabeau",
+        "postalCode": "13100",
+        "city": "Aix-en-Provence"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Spécialisé haut de gamme, CRM personnalisé"
+    },
+    {
+      "id": "CLI-009",
+      "name": "Librairie des Arts",
+      "address": {
+        "line1": "12 Rue Montorgueil",
+        "postalCode": "75001",
+        "city": "Paris"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Librairie spécialisée, vente en ligne développée"
+    },
+    {
+      "id": "CLI-010",
+      "name": "Cabinet Vétérinaire des Pins",
+      "address": {
+        "line1": "67 Chemin des Pins",
+        "postalCode": "83000",
+        "city": "Toulon"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Clinique moderne, équipements de radiologie numérique"
+    },
+    {
+      "id": "CLI-011",
+      "name": "Menuiserie Artisanale Moreau",
+      "address": {
+        "line1": "45 Route de la Forêt",
+        "postalCode": "88000",
+        "city": "Épinal"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Spécialisé en menuiserie traditionnelle et moderne"
+    },
+    {
+      "id": "CLI-012",
+      "name": "Cabinet Comptable Expertise Plus",
+      "address": {
+        "line1": "12 Avenue Jean Jaurès",
+        "postalCode": "59000",
+        "city": "Lille"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Cabinet d'expertise comptable, 150 clients PME"
+    },
+    {
+      "id": "CLI-013",
+      "name": "Hôtel des Voyageurs",
+      "address": {
+        "line1": "8 Place de la Gare",
+        "postalCode": "21000",
+        "city": "Dijon"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Hôtel 3 étoiles, 45 chambres, proche centre-ville"
+    },
+    {
+      "id": "CLI-014",
+      "name": "Pressing Moderne",
+      "address": {
+        "line1": "23 Rue du Commerce",
+        "postalCode": "76000",
+        "city": "Rouen"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Pressing écologique, service de retouches"
+    },
+    {
+      "id": "CLI-015",
+      "name": "Coiffure Élégance",
+      "address": {
+        "line1": "15 Boulevard des Capucines",
+        "postalCode": "75009",
+        "city": "Paris"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Salon haut de gamme, spécialisé colorations"
+    },
+    {
+      "id": "CLI-016",
+      "name": "Fleuriste Les Roses d'Or",
+      "address": {
+        "line1": "7 Rue des Fleurs",
+        "postalCode": "84000",
+        "city": "Avignon"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Fleuriste créateur, mariages et événements"
+    },
+    {
+      "id": "CLI-017",
+      "name": "Opticien Vision Claire",
+      "address": {
+        "line1": "34 Avenue de la République",
+        "postalCode": "54000",
+        "city": "Nancy"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Opticien lunetier, examens de vue sur place"
+    },
+    {
+      "id": "CLI-018",
+      "name": "Pâtisserie Gourmandise",
+      "address": {
+        "line1": "19 Place du Marché",
+        "postalCode": "49000",
+        "city": "Angers"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Pâtisserie artisanale, chocolaterie fine"
+    },
+    {
+      "id": "CLI-019",
+      "name": "Auto-École Conduite Plus",
+      "address": {
+        "line1": "28 Rue de la Liberté",
+        "postalCode": "38000",
+        "city": "Grenoble"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Auto-école moderne, conduite accompagnée"
+    },
+    {
+      "id": "CLI-020",
+      "name": "Bijouterie Précieux",
+      "address": {
+        "line1": "5 Rue de l'Horloge",
+        "postalCode": "30000",
+        "city": "Nîmes"
+      },
+      "primaryContactId": null,
+      "externalId": null,
+      "notes": "Bijouterie joaillerie, créations sur mesure"
+    }
+  ]
+}

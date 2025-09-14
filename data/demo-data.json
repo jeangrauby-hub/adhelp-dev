@@ -1,0 +1,314 @@
+{
+  "tickets": [
+    {
+      "id": "T001",
+      "subject": "Serveur principal ne répond plus aux requêtes réseau",
+      "description": "Le serveur Dell PowerEdge R740 installé en salle serveur ne répond plus depuis ce matin 8h30. Les voyants d'état sont au rouge et aucune connexion réseau n'est possible. Les utilisateurs ne peuvent plus accéder aux applications métier. Une intervention urgente est nécessaire pour diagnostiquer la panne. Le service informatique a été alerté et se rend sur site immédiatement. Tous les services critiques de l'entreprise sont impactés par cette panne. L'équipe technique procède actuellement à un diagnostic complet du matériel. Les sauvegardes automatiques ont été vérifiées et sont intègres. Un plan de continuité d'activité a été activé pour minimiser l'impact sur la production.",
+      "client": "TechnoSolutions SARL",
+      "assignee": "Guillaume",
+      "status": "En cours",
+      "urgent": true,
+      "important": true,
+      "createdAt": 1704067200000,
+      "updatedAt": 1704070800000,
+      "attachments": [
+        {
+          "name": "diagnostic-serveur-logs.txt",
+          "type": "text/plain",
+          "url": "https://example.com/files/diagnostic-serveur-logs.txt",
+          "size": "15.2 KB",
+          "content": "DIAGNOSTIC SERVEUR DELL POWEREDGE R740\n=================================\n\n[2024-01-01 08:30:15] ERREUR CRITIQUE: Perte de connectivité réseau\n[2024-01-01 08:30:16] Interface eth0: Link DOWN\n[2024-01-01 08:30:17] Interface eth1: Link DOWN\n[2024-01-01 08:30:18] Tentative de redémarrage du service réseau...\n[2024-01-01 08:30:25] ÉCHEC: Impossible de redémarrer les interfaces réseau\n[2024-01-01 08:30:30] Vérification matérielle en cours...\n[2024-01-01 08:30:45] ALERTE: Température CPU élevée (85°C)\n[2024-01-01 08:31:00] ALERTE: Ventilateurs à vitesse maximale\n[2024-01-01 08:31:15] Arrêt d'urgence recommandé\n\nCONCLUSION: Problème matériel probable sur carte réseau principale"
+        },
+        {
+          "name": "photo-voyants-serveur.jpg",
+          "type": "image/jpeg",
+          "url": "https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg",
+          "size": "2.1 MB"
+        },
+        {
+          "name": "Documentation technique Dell R740",
+          "type": "url",
+          "url": "https://www.dell.com/support/manuals/fr-fr/poweredge-r740/per740_ism_pub/",
+          "size": "Web"
+        },
+        {
+          "name": "rapport-intervention-technicien.txt",
+          "type": "text/plain",
+          "url": "https://example.com/files/rapport-intervention-t001.txt",
+          "size": "8.7 KB",
+          "content": "RAPPORT D'INTERVENTION TECHNIQUE\n==============================\n\nTicket: T-001\nTechnicien: Guillaume Martin\nDate: 01/01/2024\nHeure début: 09:00\nHeure fin: 12:30\n\nPROBLÈME CONSTATÉ:\nServeur Dell PowerEdge R740 ne répond plus aux requêtes réseau depuis 08h30.\nVoyants d'état rouge sur façade avant.\nImpossible de pinguer le serveur depuis le réseau local.\n\nACTIONS RÉALISÉES:\n1. Vérification physique des câbles réseau - OK\n2. Test des ports switch - OK\n3. Redémarrage à froid du serveur - ÉCHEC\n4. Accès console IDRAC - Température CPU critique\n5. Nettoyage ventilateurs et radiateurs\n6. Remplacement pâte thermique processeur\n7. Test mémoire avec MemTest86 - OK\n8. Diagnostic carte réseau intégrée - DÉFAILLANTE\n\nSOLUTION APPLIQUÉE:\nInstallation carte réseau PCI-E de remplacement Intel I350-T4\nReconfiguration adresses IP et VLAN\nTest de charge réseau pendant 2h - OK\n\nSTATUT: RÉSOLU\nProchain RDV maintenance: 01/04/2024"
+        },
+        {
+          "name": "serveur-salle-machine.jpg",
+          "type": "image/jpeg",
+          "url": "https://images.pexels.com/photos/2881232/pexels-photo-2881232.jpeg",
+          "size": "3.4 MB"
+        },
+        {
+          "name": "Guide dépannage serveurs Dell",
+          "type": "url",
+          "url": "https://www.dell.com/support/kbdoc/fr-fr/000130590/guide-de-depannage-poweredge",
+          "size": "Web"
+        }
+      ],
+      "history": [
+        { "date": "01/01/24", "time": "08:45", "text": "Ticket créé par Marie" },
+        { "date": "01/01/24", "time": "09:05", "text": "Assigné à Guillaume" },
+        { "date": "01/01/24", "time": "09:20", "text": "Statut changé en « En cours »" }
+      ],
+      "resolution": {
+        "totalText": "3 h 30"
+      }
+    },
+    {
+      "id": "T002",
+      "subject": "Imprimante laser HP ne sort plus aucune impression",
+      "description": "L'imprimante HP LaserJet Pro M404dn du secrétariat médical refuse d'imprimer depuis hier après-midi. Le voyant d'alimentation est allumé mais rien ne sort quand on lance une impression. Les ordonnances s'accumulent. Le personnel médical ne peut plus imprimer les prescriptions pour les patients. Une vérification des cartouches et des pilotes sera effectuée en priorité. Le service de maintenance a été contacté pour une intervention rapide. Les niveaux de toner ont été contrôlés et semblent suffisants. Une imprimante de secours a été installée temporairement dans le bureau adjacent. Le fabricant HP a été contacté pour un diagnostic à distance.",
+      "client": "Cabinet Médical des Oliviers",
+      "assignee": "Jean",
+      "status": "Attente client",
+      "urgent": false,
+      "important": false,
+      "createdAt": 1704153600000,
+      "updatedAt": 1704153600000,
+      "attachments": [
+        { "name": "manuel-utilisateur-hp-m404dn.pdf", "type": "application/pdf", "url": "https://example.com/files/manuel-hp-m404dn.pdf", "size": "3.8 MB" },
+        { "name": "capture-ecran-erreur.png", "type": "image/png", "url": "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg", "size": "847 KB" },
+        { "name": "Support HP LaserJet M404dn", "type": "url", "url": "https://support.hp.com/fr-fr/product/hp-laserjet-pro-m404-printer-series/", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T003",
+      "subject": "Caisse enregistreuse affiche erreur système critique",
+      "description": "La caisse principale Casio SE-S10 affiche 'ERREUR SYS 0x4F' depuis l'ouverture ce matin. Impossible d'enregistrer les ventes, nous devons noter à la main. C'est la période des fêtes, c'est très problématique. Les clients font la queue et la situation devient critique pour le commerce. Un reset complet du système sera tenté en premier recours. Le fournisseur de la caisse a été contacté pour un dépannage d'urgence. La caisse de secours a été sortie du stock et sera opérationnelle dans l'heure. Tous les tickets de caisse de la journée ont été sauvegardés manuellement. Le technicien spécialisé arrivera sur site avant 14h pour résoudre définitivement le problème.",
+      "client": "Boulangerie Artisanale Dupont",
+      "assignee": "Samuel",
+      "status": "Résolu",
+      "urgent": true,
+      "important": false,
+      "createdAt": 1704240000000,
+      "updatedAt": 1704246000000,
+      "attachments": [
+        { "name": "code-erreur-casio-se-s10.txt", "type": "text/plain", "url": "https://example.com/files/codes-erreur-casio.txt", "size": "8.7 KB" },
+        { "name": "photo-ecran-erreur-caisse.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg", "size": "1.3 MB" },
+        { "name": "Documentation Casio SE-S10", "type": "url", "url": "https://www.casio.com/products/electronic-cash-registers/", "size": "Web" },
+        { "name": "procedure-reset-caisse.txt", "type": "text/plain", "url": "https://example.com/files/reset-casio-se-s10.txt", "size": "4.2 KB" },
+        { "name": "caisse-boulangerie-dupont.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/4386321/pexels-photo-4386321.jpeg", "size": "2.8 MB" },
+        { "name": "Support technique Casio France", "type": "url", "url": "https://support.casio.fr/caisses-enregistreuses/se-s10/", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T004",
+      "subject": "Logiciel de diagnostic automobile plante au démarrage",
+      "description": "Le logiciel Renault CLIP version 198 refuse de se lancer sur le poste de diagnostic. Message d'erreur 'Échec initialisation interface CAN'. Les clients attendent pour le contrôle technique. L'interface de diagnostic ne communique plus avec les véhicules. Une réinstallation du logiciel et des pilotes sera nécessaire. Le planning des rendez-vous risque d'être perturbé toute la journée. Le support technique Renault a été contacté pour une assistance à distance. Un poste de diagnostic de secours est en cours d'installation dans l'atelier voisin. Les rendez-vous de l'après-midi ont été reportés à demain matin.",
+      "client": "Garage Automobile Renault",
+      "assignee": "Samuel",
+      "status": "Non affecté",
+      "urgent": false,
+      "important": true,
+      "createdAt": 1704326400000,
+      "updatedAt": 1704330000000,
+      "attachments": [
+        { "name": "log-erreur-clip-198.log", "type": "text/plain", "url": "https://example.com/files/clip-error-log.txt", "size": "12.4 KB" },
+        { "name": "interface-can-diagnostic.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/3807277/pexels-photo-3807277.jpeg", "size": "2.8 MB" },
+        { "name": "Support Renault CLIP", "type": "url", "url": "https://www.renault.fr/services/professionnels/outils-diagnostic.html", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T005",
+      "subject": "Tableau interactif ne détecte plus les interactions tactiles",
+      "description": "Le tableau numérique interactif Promethean ActivBoard de la classe de CM2 ne répond plus au toucher depuis la mise à jour Windows. Les enfants ne peuvent plus participer aux exercices interactifs. La leçon de mathématiques prévue ce matin ne peut pas se dérouler normalement. Un recalibrage du tableau sera tenté avant de contacter le support technique. L'enseignante doit adapter sa pédagogie en attendant la réparation. Les pilotes du tableau ont été réinstallés mais le problème persiste. Un tableau mobile de remplacement sera livré cet après-midi. La direction de l'école envisage de reporter la mise à jour Windows sur les autres postes.",
+      "client": "École Primaire Saint-Exupéry",
+      "assignee": "Guillaume",
+      "status": "Attente client",
+      "urgent": false,
+      "important": false,
+      "createdAt": 1704412800000,
+      "updatedAt": 1704416400000,
+      "attachments": [
+        { "name": "calibrage-tableau-interactif.txt", "type": "text/plain", "url": "https://example.com/files/calibrage-promethean.txt", "size": "6.1 KB" },
+        { "name": "tableau-classe-cm2.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/8471831/pexels-photo-8471831.jpeg", "size": "1.9 MB" },
+        { "name": "Support Promethean ActivBoard", "type": "url", "url": "https://support.prometheanworld.com/", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T006",
+      "subject": "Système de réservation en ligne génère des doublons",
+      "description": "La plateforme de réservation OpenTable créé des réservations en double pour le même créneau. Hier soir, nous avons eu 3 tables réservées pour 20h00 alors qu'une seule était disponible. Situation très embarrassante. Les clients mécontents ont laissé des avis négatifs sur les réseaux sociaux. Une synchronisation manuelle des créneaux sera mise en place temporairement. Le prestataire technique doit intervenir rapidement pour corriger ce dysfonctionnement. Le système de réservation a été temporairement désactivé en ligne. Toutes les réservations sont maintenant prises par téléphone uniquement. Un audit complet de la base de données sera effectué ce week-end.",
+      "client": "Restaurant Le Gourmet",
+      "assignee": "Guillaume",
+      "status": "En cours",
+      "urgent": true,
+      "important": true,
+      "createdAt": 1704499200000,
+      "updatedAt": 1704499200000,
+      "attachments": [
+        { "name": "export-reservations-doublons.csv", "type": "text/csv", "url": "https://example.com/files/reservations-doublons.csv", "size": "23.7 KB" },
+        { "name": "capture-interface-opentable.png", "type": "image/png", "url": "https://images.pexels.com/photos/3201921/pexels-photo-3201921.jpeg", "size": "1.1 MB" },
+        { "name": "Documentation OpenTable", "type": "url", "url": "https://restaurant.opentable.com/support/", "size": "Web" },
+        { "name": "analyse-doublons-reservations.txt", "type": "text/plain", "url": "https://example.com/files/analyse-doublons-t006.txt", "size": "12.8 KB", "content": "ANALYSE DES DOUBLONS..." },
+        { "name": "restaurant-salle-bondee.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/696218/pexels-photo-696218.jpeg", "size": "4.1 MB" },
+        { "name": "API OpenTable développeurs", "type": "url", "url": "https://developer.opentable.com/reference/reservations-api", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T007",
+      "subject": "Logiciel de gestion pharmaceutique bloque sur les ordonnances",
+      "description": "Le logiciel Pharmagest Expert se fige systématiquement lors de la saisie d'ordonnances complexes avec plus de 5 médicaments...",
+      "client": "Pharmacie de la Gare",
+      "assignee": "Jean",
+      "status": "Résolu",
+      "urgent": false,
+      "important": false,
+      "createdAt": 1704585600000,
+      "updatedAt": 1704589200000,
+      "attachments": [
+        { "name": "trace-pharmagest-expert.log", "type": "text/plain", "url": "https://example.com/files/pharmagest-trace.log", "size": "18.9 KB" },
+        { "name": "ordonnance-problematique.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/3683074/pexels-photo-3683074.jpeg", "size": "1.7 MB" },
+        { "name": "Support Pharmagest", "type": "url", "url": "https://www.pharmagest.com/support-client/", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T008",
+      "subject": "CRM immobilier perd la synchronisation avec les portails",
+      "description": "Notre CRM personnalisé ne synchronise plus les annonces...",
+      "client": "Agence Immobilière Prestige",
+      "assignee": "Samuel",
+      "status": "Non affecté",
+      "urgent": true,
+      "important": false,
+      "createdAt": 1704672000000,
+      "updatedAt": 1704678000000,
+      "attachments": [
+        { "name": "erreurs-api-seloger.json", "type": "application/json", "url": "https://example.com/files/api-errors-seloger.json", "size": "7.3 KB" },
+        { "name": "dashboard-crm-erreurs.png", "type": "image/png", "url": "https://images.pexels.com/photos/590020/pexels-photo-590020.jpeg", "size": "956 KB" },
+        { "name": "API SeLoger Documentation", "type": "url", "url": "https://developers.seloger.com/", "size": "Web" },
+        { "name": "log-synchronisation-portails.txt", "type": "text/plain", "url": "https://example.com/files/sync-portails-t008.txt", "size": "18.4 KB" },
+        { "name": "bureau-agence-immobiliere.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/7578842/pexels-photo-7578842.jpeg", "size": "3.7 MB" },
+        { "name": "Changelog API SeLoger", "type": "url", "url": "https://developers.seloger.com/changelog/api-v3-2-updates", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T009",
+      "subject": "Site e-commerce librairie très lent depuis la mise à jour",
+      "description": "Le site WordPress WooCommerce de la librairie met plus de 15 secondes à charger...",
+      "client": "Librairie des Arts",
+      "assignee": "Samuel",
+      "status": "Attente client",
+      "urgent": false,
+      "important": true,
+      "createdAt": 1704758400000,
+      "updatedAt": 1704758400000,
+      "attachments": [
+        { "name": "rapport-pagespeed-insights.txt", "type": "text/plain", "url": "https://example.com/files/pagespeed-report.txt", "size": "11.8 KB" },
+        { "name": "analyse-temps-chargement.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg", "size": "2.4 MB" },
+        { "name": "Google PageSpeed Insights", "type": "url", "url": "https://pagespeed.web.dev/", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T010",
+      "subject": "Logiciel vétérinaire ne sauvegarde plus les dossiers patients",
+      "description": "Le logiciel Vetup Pro version 12.4 affiche 'Erreur de sauvegarde base de données'...",
+      "client": "Cabinet Vétérinaire des Pins",
+      "assignee": "Guillaume",
+      "status": "En cours",
+      "urgent": true,
+      "important": true,
+      "createdAt": 1704844800000,
+      "updatedAt": 1704848400000,
+      "attachments": [
+        { "name": "erreur-base-donnees-vetup.log", "type": "text/plain", "url": "https://example.com/files/vetup-database-error.log", "size": "14.6 KB" },
+        { "name": "interface-vetup-erreur.png", "type": "image/png", "url": "https://images.pexels.com/photos/6235233/pexels-photo-6235233.jpeg", "size": "1.2 MB" },
+        { "name": "Support Vetup Pro", "type": "url", "url": "https://www.vetup.com/support/", "size": "Web" },
+        { "name": "sauvegarde-dossiers-patients.txt", "type": "text/plain", "url": "https://example.com/files/backup-patients-t010.txt", "size": "9.3 KB" },
+        { "name": "cabinet-veterinaire-consultation.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/6816861/pexels-photo-6816861.jpeg", "size": "2.9 MB" },
+        { "name": "Documentation Vetup sauvegarde", "type": "url", "url": "https://help.vetup.com/backup-restore-procedures", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T011",
+      "subject": "Connexion VPN entreprise instable avec déconnexions fréquentes",
+      "description": "La connexion VPN FortiClient vers le siège social se coupe toutes les 10-15 minutes...",
+      "client": "TechnoSolutions SARL",
+      "assignee": "Guillaume",
+      "status": "Résolu",
+      "urgent": false,
+      "important": false,
+      "createdAt": 1704931200000,
+      "updatedAt": 1704934800000,
+      "attachments": [
+        { "name": "logs-forticlient-deconnexions.txt", "type": "text/plain", "url": "https://example.com/files/forticlient-logs.txt", "size": "22.1 KB" },
+        { "name": "config-vpn-fortigate.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg", "size": "1.8 MB" },
+        { "name": "Documentation FortiClient", "type": "url", "url": "https://docs.fortinet.com/product/forticlient/", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T012",
+      "subject": "Scanner médical ne communique plus avec le PACS",
+      "description": "L'échographe Philips EPIQ 5 ne peut plus envoyer les images vers le système PACS...",
+      "client": "Cabinet Médical des Oliviers",
+      "assignee": "Jean",
+      "status": "Non affecté",
+      "urgent": true,
+      "important": false,
+      "createdAt": 1705017600000,
+      "updatedAt": 1705017600000,
+      "attachments": [
+        { "name": "configuration-pacs-dicom.xml", "type": "application/xml", "url": "https://example.com/files/pacs-config.xml", "size": "4.7 KB" },
+        { "name": "echographe-philips-epiq5.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg", "size": "3.1 MB" },
+        { "name": "Support Philips Healthcare", "type": "url", "url": "https://www.philips.com/healthcare/solutions/ultrasound", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T013",
+      "subject": "Balance électronique affiche des poids erronés",
+      "description": "La balance Mettler Toledo ME204E de la boulangerie indique des poids fantaisistes...",
+      "client": "Boulangerie Artisanale Dupont",
+      "assignee": "Samuel",
+      "status": "Attente client",
+      "urgent": false,
+      "important": true,
+      "createdAt": 1705104000000,
+      "updatedAt": 1705110000000,
+      "attachments": [
+        { "name": "procedure-calibrage-mettler.pdf", "type": "application/pdf", "url": "https://example.com/files/calibrage-mettler-toledo.pdf", "size": "2.9 MB" },
+        { "name": "balance-mettler-toledo-me204e.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/6195125/pexels-photo-6195125.jpeg", "size": "1.6 MB" },
+        { "name": "Support Mettler Toledo", "type": "url", "url": "https://www.mt.com/fr/fr/home/support.html", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T014",
+      "subject": "Pont élévateur hydraulique perd de la pression",
+      "description": "Le pont élévateur Ravaglioli KPX377 de l'atelier ne maintient plus la hauteur...",
+      "client": "Garage Automobile Renault",
+      "assignee": "Samuel",
+      "status": "En cours",
+      "urgent": true,
+      "important": true,
+      "createdAt": 1705190400000,
+      "updatedAt": 1705194000000,
+      "attachments": [
+        { "name": "manuel-maintenance-ravaglioli.txt", "type": "text/plain", "url": "https://example.com/files/maintenance-ravaglioli-kpx377.txt", "size": "16.3 KB" },
+        { "name": "pont-elevateur-atelier.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/3806288/pexels-photo-3806288.jpeg", "size": "2.7 MB" },
+        { "name": "Support Ravaglioli", "type": "url", "url": "https://www.ravaglioli.com/support/", "size": "Web" }
+      ]
+    },
+    {
+      "id": "T015",
+      "subject": "Vidéoprojecteur classe ne s'allume plus du tout",
+      "description": "Le vidéoprojecteur Epson EB-X41 de la salle informatique reste éteint...",
+      "client": "École Primaire Saint-Exupéry",
+      "assignee": "Guillaume",
+      "status": "Résolu",
+      "urgent": false,
+      "important": false,
+      "createdAt": 1705276800000,
+      "updatedAt": 1705280400000,
+      "attachments": [
+        { "name": "guide-depannage-epson-eb-x41.txt", "type": "text/plain", "url": "https://example.com/files/depannage-epson-ebx41.txt", "size": "9.4 KB" },
+        { "name": "videoprojecteur-salle-info.jpg", "type": "image/jpeg", "url": "https://images.pexels.com/photos/2041540/pexels-photo-2041540.jpeg", "size": "1.4 MB" },
+        { "name": "Support Epson Projecteurs", "type": "url", "url": "https://www.epson.fr/support/projecteurs", "size": "Web" }
+      ]
+    }
+  ]
+}

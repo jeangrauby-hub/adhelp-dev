@@ -1,0 +1,152 @@
+[
+  {
+    "id": "CLI-001",
+    "name": "SOCIETE 001",
+    "address": {
+      "line1": "11 Rue de la République",
+      "postalCode": "31000",
+      "city": "Toulouse"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-002",
+    "name": "SOCIETE 002",
+    "address": {
+      "line1": "12 Rue de la République",
+      "postalCode": "33000",
+      "city": "Bordeaux"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-003",
+    "name": "SOCIETE 003",
+    "address": {
+      "line1": "13 Rue de la République",
+      "postalCode": "69000",
+      "city": "Lyon"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-004",
+    "name": "SOCIETE 004",
+    "address": {
+      "line1": "14 Rue de la République",
+      "postalCode": "75000",
+      "city": "Paris"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-005",
+    "name": "SOCIETE 005",
+    "address": {
+      "line1": "15 Rue de la République",
+      "postalCode": "13000",
+      "city": "Marseille"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-006",
+    "name": "SOCIETE 006",
+    "address": {
+      "line1": "16 Rue de la République",
+      "postalCode": "06000",
+      "city": "Nice"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-007",
+    "name": "SOCIETE 007",
+    "address": {
+      "line1": "17 Rue de la République",
+      "postalCode": "44000",
+      "city": "Nantes"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-008",
+    "name": "SOCIETE 008",
+    "address": {
+      "line1": "18 Rue de la République",
+      "postalCode": "35000",
+      "city": "Rennes"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-009",
+    "name": "SOCIETE 009",
+    "address": {
+      "line1": "19 Rue de la République",
+      "postalCode": "59000",
+      "city": "Lille"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-010",
+    "name": "SOCIETE 010",
+    "address": {
+      "line1": "20 Rue de la République",
+      "postalCode": "67000",
+      "city": "Strasbourg"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-011",
+    "name": "SOCIETE 011",
+    "address": {
+      "line1": "21 Rue de la République",
+      "postalCode": "34000",
+      "city": "Montpellier"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-012",
+    "name": "SOCIETE 012",
+    "address": {
+      "line1": "22 Rue de la République",
+      "postalCode": "37000",
+      "city": "Tours"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-013",
+    "name": "SOCIETE 013",
+    "address": {
+      "line1": "23 Rue de la République",
+      "postalCode": "45000",
+      "city": "Orléans"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-014",
+    "name": "SOCIETE 014",
+    "address": {
+      "line1": "24 Rue de la République",
+      "postalCode": "72000",
+      "city": "Le Mans"
+    },
+    "notes": ""
+  },
+  {
+    "id": "CLI-015",
+    "name": "SOCIETE 015",
+    "address": {
+      "line1": "25 Rue de la République",
+      "postalCode": "21000",
+      "city": "Dijon"
+    },
+    "notes": ""
+  }
+]

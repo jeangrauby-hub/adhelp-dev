@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "USR-001",
+      "nom": "DEBORDE",
+      "prenom": "Guillaume",
+      "email": "guillaume.deborde@ad-pomme.fr",
+      "role": "technicien",
+      "tel": "06 17 34 57 65"
+    },
+    {
+      "id": "USR-002",
+      "nom": "VINCENT",
+      "prenom": "Samuel",
+      "email": "samuel.vincent@ad-pomme.fr",
+      "role": "technicien",
+      "tel": "06 28 95 33 41"
+    },
+    {
+      "id": "USR-003",
+      "nom": "GRAUBY",
+      "prenom": "Jean",
+      "email": "jean.grauby@ad-pomme.fr",
+      "role": "admin",
+      "tel": "06 28 41 35 55"
+    }
+  ]
+}

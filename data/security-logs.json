@@ -1,0 +1,70 @@
+{
+  "logs": [
+    {
+      "id": "LOG-001",
+      "timestamp": 1704067200000,
+      "userId": "USR-003",
+      "userName": "Jean GRAUBY",
+      "action": "login",
+      "ip": "192.168.1.100",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      "details": "Connexion réussie",
+      "severity": "info"
+    },
+    {
+      "id": "LOG-002", 
+      "timestamp": 1704063600000,
+      "userId": "USR-001",
+      "userName": "Guillaume DEBORDE",
+      "action": "login",
+      "ip": "192.168.1.101",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+      "details": "Connexion réussie",
+      "severity": "info"
+    },
+    {
+      "id": "LOG-003",
+      "timestamp": 1704060000000,
+      "userId": "unknown",
+      "userName": "Inconnu",
+      "action": "failed_login",
+      "ip": "203.0.113.42",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+      "details": "Tentative avec email inexistant: hacker@example.com",
+      "severity": "warning"
+    },
+    {
+      "id": "LOG-004",
+      "timestamp": 1704056400000,
+      "userId": "unknown",
+      "userName": "Inconnu", 
+      "action": "failed_login",
+      "ip": "203.0.113.42",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+      "details": "Mot de passe incorrect pour: jean.grauby@ad-pomme.fr",
+      "severity": "warning"
+    },
+    {
+      "id": "LOG-005",
+      "timestamp": 1704052800000,
+      "userId": "USR-003",
+      "userName": "Jean GRAUBY",
+      "action": "user_created",
+      "ip": "192.168.1.100",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      "details": "Création utilisateur: Sophie MARTIN (role: technicien)",
+      "severity": "info"
+    },
+    {
+      "id": "LOG-006",
+      "timestamp": 1704049200000,
+      "userId": "USR-002",
+      "userName": "Samuel VINCENT",
+      "action": "password_changed",
+      "ip": "192.168.1.102",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      "details": "Changement de mot de passe réussi",
+      "severity": "info"
+    }
+  ]
+}

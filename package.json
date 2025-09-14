@@ -1,0 +1,23 @@
+{
+  "name": "adhelp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ADHELP - Système de gestion de tickets",
+  "type": "module",
+  "scripts": {
+    "dev": "echo \"Bolt preview: ouvrir index.html directement\"",
+    "start": "echo \"Bolt preview: ouvrir index.html directement\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["tickets", "helpdesk", "support"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "express": "^4.19.2",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "kill-port": "^2.0.1"
+  }
+}

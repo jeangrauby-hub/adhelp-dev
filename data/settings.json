@@ -1,0 +1,48 @@
+{
+  "globalSettings": {
+    "companyName": "AD-POMME",
+    "companyAddress": "8 impasse Ratalens - 31240 St-Jean",
+    "companyPhone": "05 54 54 41 13",
+    "companyEmail": "infos@ad-pomme.fr",
+    "companyWebsite": "www.ad-pomme.fr",
+    "siret": "492 296 744 00039",
+    "ape": "4651Z",
+    "capital": "8000",
+    "iban": "FR27 1144 9000 0101 3785 4001 M90",
+    "bic": "BDEIFRPPXXX"
+  },
+  "knowledgeBaseCategories": [
+    "Matériel",
+    "Logiciel", 
+    "Réseau",
+    "Sécurité",
+    "Procédure"
+  ],
+  "securityPolicies": {
+    "sessionDuration": 480,
+    "maxLoginAttempts": 5,
+    "lockoutDuration": 15,
+    "passwordExpiry": 90,
+    "passwordComplexity": {
+      "minLength": 12,
+      "requireUpper": true,
+      "requireLower": true,
+      "requireNumber": true,
+      "requireSpecial": true,
+      "preventCommon": true,
+      "preventReuse": 5
+    }
+  },
+  "integrations": {
+    "emailNotifications": true,
+    "smsNotifications": false,
+    "smsProvider": "",
+    "smsApiKey": "",
+    "autoBackup": true,
+    "backupTime": "03:00"
+  },
+  "pdfTemplates": {
+    "serviceRecordPDFTemplateUrl": "",
+    "cgvPdfUrl": ""
+  }
+}

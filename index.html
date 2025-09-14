@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ADHELP — Tous les tickets</title>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="css/attachments.css" />
+<style>
+  :root{
+    --bg:#f6f7fb; --panel:#ffffff; --text:#1b2430; --muted:#6b7280; --border:#e5e7eb;
+    --blue-dark:#0a3d62; --brand:#2563eb;
+    --tbl-font:13px; --tbl-head:12.5px; --tbl-pad-y:8px; --tbl-pad-x:10px;
+    --z-pop:30;
+  }
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;font-size:14px;line-height:1.35;overflow:hidden}
+  a{color:inherit;text-decoration:none}
+  .layout{display:flex;min-height:100vh;overflow:hidden}
+  aside{position:fixed;top:0;left:0;width:220px;height:100vh;background:#0d1b2a;color:#e5e7eb;padding:18px 14px;border-right:1px solid rgba(255,255,255,.08);z-index:20;overflow-y:auto}
+  .content{flex:1;margin-left:240px;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+  .brand{font-weight:700;letter-spacing:.3px;margin:6px 0 18px}
+  .nav a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;color:#e5e7eb}
+  .nav a:hover{background:rgba(255,255,255,.06)}
+  .nav a.active{background:rgba(255,255,255,.12);font-weight:600}
+  .spacer{height:10px}
+  .quick-add{font-weight:700;opacity:.8;font-size:18px;padding:4px 8px;border-radius:4px;cursor:pointer}
+  .quick-add:hover{background:rgba(255,255,255,.1)}
+  header{position:sticky;top:0;z-index:10;flex-shrink:0;background:var(--bg);padding:16px 22px;border-bottom:1px solid var(--border)}
+  .apps{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 10px;box-shadow:0 8px 24px rgba(0,0,0,.06);cursor:pointer}
+  main{padding:22px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  h1{font-size:26px;margin:8px 0 10px}
+  .view{display:none}
+  .view.active{display:block}
+  .toolbar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+  .search{flex:1;min-width:280px;position:relative}
+  .search input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:#fff;outline:none}
+  .btn{border:1px solid var(--border);background:#fff;padding:8px 12px;border-radius:10px;cursor:pointer}
+  .btn:hover{border-color:#d1d5db}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+  table{width:100%;border-collapse:separate;border-spacing:0}
+  thead th{font-size:var(--tbl-head);text-align:left;color:#374151;background:#f9fafb;border-bottom:1px solid var(--border);padding:calc(var(--tbl-pad-y) - 2px) var(--tbl-pad-x);white-space:nowrap}
+  tbody td{font-size:var(--tbl-font);border-bottom:1px solid var(--border);padding:var(--tbl-pad-y) var(--tbl-pad-x);vertical-align:middle}
+  tbody tr:hover{background:#f8fafc}
+  .col-ticket{width:9ch}.col-assignee{width:12ch}.col-status{width:12ch}
+  .col-urgent{text-align:center;width:8ch}.col-important{text-align:center;width:8ch}
+  .col-attachments{text-align:center;width:6ch}.col-date{width:14ch;white-space:nowrap;text-align:center}
+  .col-subject{width:auto}
+  tbody td a{color:var(--brand);text-decoration:none}
+  tbody td a:hover{text-decoration:underline}
+  .client{color:var(--blue-dark);font-weight:600;margin-top:2px}
+  .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;line-height:18px;background:#e5e7eb;color:#111827}
+  .b-yellow{background:#fde68a}.b-green{background:#bbf7d0}
+  .flag-imp{display:inline-block;width:16px;height:16px;vertical-align:middle;background-repeat:no-repeat;background-position:center;background-size:16px 16px;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23111" d="M6 3a1 1 0 0 0-1 1v16a1 1 0 0 0 2 0v-5.382c.478-.21 1.076-.393 1.8-.393c1.287 0 2.258.445 3.17.87c.916.427 1.78.905 2.93.905c1.155 0 2.07-.39 2.664-.79c.61-.41 1.006-.86 1.236-1.18a1 1 0 0 0 .2-.6V5a1 1 0 0 0-1.6-.8c-.252 .19-.676 .5-1.264 .81c-.59 .32-1.358 .64-2.236 .64c-1.267 0-2.25-.445-3.17-.87C9.916 4.353 9.05 3.875 7.9 3.875c-.89 0-1.655 .245-2.2 .49V4a1 1 0 0 0-1-1"/></svg>')}
+  .urgent-icon{display:inline-block;font-size:16px;line-height:16px}
+  .attachments-icon{display:inline-block;font-size:16px;line-height:16px;color:#3b82f6;cursor:pointer;opacity:0.8}
+  .attachments-icon:hover{opacity:1}
+  /* Cache le bouton PJ du bas injecté dans la modale Ticket */
+  #ticketModal .attachments-container .btn-attachment { display: none !important; }
+  #ticketModal .attachments-container a.btn-attachment,
+  #ticketModal .attachments-container span.btn-attachment { display: none !important; }
+  .empty{color:var(--muted);text-align:center;padding:18px 0}
+  .filters{position:relative}
+  .popover{position:absolute;top:44px;right:0;width:290px;max-height:70vh;overflow:auto;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,.08);display:none;padding:10px;z-index:var(--z-pop)}
+  .popover.open{display:block}
+  .pop-title{font-weight:700;font-size:12.5px;color:#374151;margin:10px 0 6px}
+  .item{display:grid;grid-template-columns:18px 1fr;align-items:center;gap:6px;padding:6px 6px;border-radius:8px;cursor:pointer;user-select:none}
+  .item:hover{background:#f3f4f6}
+  .tick{width:14px;height:14px;border-radius:3px;border:1px solid #cbd5e1;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+  .item.selected .tick{background:#111;color:#fff;border-color:#111}
+  .item.selected .tick::before{content:"✓"}
+  .x-clear{color:#ef4444;cursor:pointer;font-size:12.5px;font-weight:700}
+
+  /* Modales génériques */
+  .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center}
+  .modal-content{background:white;border-radius:12px;width:90%;max-width:500px;max-height:80vh;overflow:hidden}
+  .modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .modal-header h3{margin:0;font-size:18px}
+  .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#666}
+  .modal-body{padding:20px;max-height:60vh;overflow-y:auto}
+
+  /* Modale "Ticket" / "Article" / "Support" */
+  .modal-ticket{background:#f1f8fe;width:900px;max-width:95vw;height:95vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.3);color:#0b121e;display:flex;flex-direction:column;padding:20px;gap:15px;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+  #suggestionsModal{z-index:1100}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;background:transparent;border-bottom:none;flex-shrink:0}
+  .modal-header h1{margin:0;font-size:18px;font-weight:700;color:#0b121e;min-width:80px}
+  .toolbar-buttons{display:flex;gap:12px;flex:1;justify-content:center}
+  .toolbar-btn{background:#f1f8fe;border:1px solid #ecf0f7;border-radius:6px;padding:6px 10px;cursor:pointer;font-size:12px;color:#0b121e}
+  .toolbar-btn:hover{background:#ecf0f7}
+  .row-client-contact{display:flex;gap:15px;align-items:center}
+  .select-client,.select-contact{flex:2;padding:12px 16px;border:none;border-radius:8px;background:#ecf0f7;font-size:15px;color:#0b121e;font-family:inherit}
+  .contact-actions{display:flex;gap:8px;flex:1}
+  .contact-btn{background:#ecf0f7;border:none;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:14px;color:#0b121e;flex:1;font-family:inherit;filter:none}
+  .contact-btn:hover{background:#d1d5db}
+  .contact-btn.clear{color:#ef4444;font-weight:bold}
+  .row-subject-urgent{display:flex;gap:15px;align-items:center}
+  .input-subject{flex:1;padding:12px 16px;border:none;border-radius:8px;font-size:16px;font-weight:500;background:#ecf0f7;color:#0b121e;font-family:inherit}
+  .urgent-checkbox{display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .urgent-checkbox input{width:18px;height:18px}
+  .urgent-text{color:#ef4444;font-weight:600;font-size:14px}
+  .row-assign-status{display:flex;gap:15px}
+  .select-assignee,.select-status{flex:1;padding:12px 16px;border:none;border-radius:8px;background:#ecf0f7;font-size:14px;color:#0b121e;font-family:inherit}
+  .textarea-description{width:100%;min-height:120px;padding:12px 16px;border:none;border-radius:8px;font-size:14px;line-height:1.5;resize:vertical;background:#ecf0f7;color:#0b121e;box-sizing:border-box;font-family:inherit}
+  .textarea-description[contenteditable]:empty:before{content:attr(data-placeholder);color:#6b7280;font-style:italic}
+  .row-actions{display:flex;gap:15px;align-items:center;flex-wrap:wrap}
+
+  /* ---- Alignement PJ (modale Article) ---- */
+  #articleModal .attachments-container{display:flex;align-items:center;gap:12px;margin-top:0}
+  #articleModal .attachments-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;max-height:160px;overflow:auto}
+  #articleModal .attachment-item-mini{position:relative !important}
+  
+  .btn-suggestions,.btn-attachment{padding:8px 12px;border:none;border-radius:8px;background:#ecf0f7;cursor:pointer;font-size:12px;display:flex;align-items:center;gap:8px;color:#0b121e;font-family:inherit}
+  .btn-suggestions:hover,.btn-attachment:hover{background:#d1d5db}
+
+  
+  .checkbox-item{display:flex;align-items:center;gap:6px;cursor:pointer}
+  .checkbox-item input{width:16px;height:16px}
+  .checkbox-text{font-size:12px;font-weight:500}
+  .checkbox-text.rappel{color:#f59e0b}
+  .checkbox-text.important{color:#ef4444}
+  .checkbox-text.billable{color:#3b82f6;font-weight:600}
+  .btn-cancel,.btn-save{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-left:auto;font-family:inherit}
+  .btn-cancel{background:#ecf0f7;border:none;color:#0b121e}
+  .btn-save{background:#4f46e5;border:none;color:#fff}
+  .btn-cancel:hover{background:#d1d5db}
+  .btn-save:hover{background:#3730a3}
+  /* Bouton temps manuel (même look que .btn-attachment, sans interférence PJ) */
+  .btn-time{
+    padding:8px 12px;border:none;border-radius:8px;background:#ecf0f7;
+    cursor:pointer;font-size:12px;display:flex;align-items:center;gap:8px;
+    color:#0b121e;font-family:inherit
+  }
+  .btn-time:hover{ background:#d1d5db }
+  /* (Ancien bloc d'historique — plus utilisé pour l'instant) */
+  .history-section{margin-top:auto;padding:15px;background:#ecf0f7;border-radius:8px;flex-shrink:0}
+  .history-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .history-icon{font-size:16px}
+  .history-title{font-weight:600;color:#0b121e;font-size:14px}
+  .history-content{font-size:12px;color:#0b121e;line-height:1.4}
+  .history-item{display:flex;gap:12px;margin-bottom:6px}
+  .history-date{color:#3b82f6;font-weight:600;min-width:60px}
+  .history-text{flex:1;color:#0b121e}
+
+  /* Harmoniser le sujet avec la description (même police/tailles, pas de gras) */
+  #ticketModal #ticketSubject{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    font-family: inherit;
+    color: #0b121e;
+  }
+  #ticketModal #ticketSubject::placeholder{
+    font-size: 14px;
+    font-weight: 400;
+    color: #6b7280;
+  }
+
+  /* Champ créateur (modale Prise en charge) */
+  .modal-header .creator-field{
+    width: 180px;
+    border: none;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+  }
+  .modal-header #supportCreator {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0b121e;
+    font-family: inherit;
+  }
+
+  /* Placeholders rouges pour les champs obligatoires (PEC) */
+  #supportMaterial::placeholder,
+  #supportSerial::placeholder,
+  #supportPassword::placeholder,
+  #supportAccessories::placeholder,
+  #supportClientRequest::placeholder{
+    color:#ef4444;
+  }
+
+  /* ===== Ajouts pour la modale Prise en charge ===== */
+  .support-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:15px;
+    align-items:center;
+  }
+  .pwd-wrap{ display:flex; gap:8px; align-items:center; }
+  #supportAccessories{ min-height:60px; }
+  #supportAction{ min-height:180px; }
+  /* ================================================ */
+
+/* Centrage colonnes PEC et Statut (liste Prise en charge) */
+#supportView table th.col-ticket,
+#supportView table th.col-status{
+  text-align:center;
+}
+#supportView table tbody td:nth-child(1),
+#supportView table tbody td:nth-child(4){
+  text-align:center;
+}
+/* PJ centrée (en-tête + valeurs) */
+#supportView table th.col-attachments { text-align: center; }
+#supportView table tbody td:nth-child(5) { text-align: center; }
+  
+/* Ajustement largeurs colonnes (liste Prise en charge) */
+#supportView table th.col-subject { width: 28ch; }   /* Client un peu réduit */
+#supportView table th.col-status  { width: 16ch; }   /* Statut élargi */
+
+  /* Survol lignes cliquables (liste Prise en charge) */
+  #supportTbody tr.open-support {
+    cursor: pointer;
+    transition: background 0.15s ease-in-out;
+  }
+  #supportTbody tr.open-support:hover {
+    background: #f8fafc; /* même couleur que les tickets */
+  }
+
+  /* Format NOM Prénom */
+  .contact-name{
+    font-weight:500;
+    color:#0b121e;
+  }
+
+  .contact-name::first-letter{
+    text-transform:uppercase;
+  }
+
+  /* Date/heure sur 2 lignes */
+  .date-cell{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    line-height:1.2;
+  }
+  .date-cell .date-part{
+    font-weight:600;
+  }
+  .date-cell .time-part{
+    font-size:12px;
+    color:#374151;
+  }
+
+</style>
+  
+</head>
+<body>
+<!-- Modal de sélection de contact (unique) -->
+<div class="modal-overlay" id="contactModal" style="display:none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Sélectionner un contact</h3>
+      <button class="close-btn" id="closeContactModal">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="search-input" id="contactSearch" placeholder="Rechercher par nom ou prénom..." />
+      <div class="contacts-list" id="contactsList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Suggestions IA (prototype) -->
+<div class="modal-overlay" id="suggestionsModal" style="display:none;">
+  <div class="modal-ticket" style="position:relative; width:940px; max-width:95vw; max-height:90vh; overflow:auto;">
+    <div class="modal-header" style="position:sticky; top:0; background:#f1f8fe;">
+      <h1>Suggestions</h1>
+      <button class="close-btn" id="closeSuggestionsModal" aria-label="Fermer">×</button>
+    </div>
+
+    <div class="modal-body" style="padding-top:0;">
+      <div style="margin-bottom:18px;">
+        <div style="font-weight:700; font-size:14px; color:#0b121e; margin:10px 0 8px;">Tickets similaires</div>
+        <div id="suggestionsTickets" role="list"></div>
+      </div>
+      <div>
+        <div style="font-weight:700; font-size:14px; color:#0b121e; margin:10px 0 8px;">Articles similaires</div>
+        <div id="suggestionsArticles" role="list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Article -->
+<div class="modal-overlay" id="articleModal" style="display:none;">
+  <div class="modal-ticket">
+    <div class="modal-header">
+      <h1><span id="articleId">A001</span></h1>
+      <button class="close-btn" id="closeArticleModal">×</button>
+    </div>
+
+    <div class="row-client-contact">
+      <input class="input-subject" id="articleTitle" placeholder="Titre de l'article" type="text" style="flex: 2;"/>
+      <select class="select-contact" id="articleCategory" style="flex: 0.67;">
+        <option value="">Sélectionner une catégorie</option>
+        <option value="Matériel">Matériel</option>
+        <option value="Logiciel">Logiciel</option>
+        <option value="Réseau">Réseau</option>
+        <option value="Sécurité">Sécurité</option>
+        <option value="Procédure">Procédure</option>
+      </select>
+    </div>
+
+    <div style="height: 5px;"></div>
+    
+    <div style="display: flex; gap: 15px; align-items: center; padding: 2px 12px; margin-bottom: 2px;">
+      <button type="button" id="btnBold" style="background: none; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; cursor: pointer; font-weight: bold;">B</button>
+      <button type="button" id="btnUnderline" style="background: none; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; cursor: pointer; text-decoration: underline;">U</button>
+      <button type="button" id="btnFontSize" style="background: none; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; cursor: pointer;">18px</button>
+      <button type="button" id="btnTextColor" style="background: none; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; cursor: pointer; color: red;">Rouge</button>
+    </div>
+
+    <div class="textarea-description" id="articleContent"
+         contenteditable="true"
+         data-placeholder="Contenu de l'article..."
+         style="min-height: 300px; max-height: 400px; overflow-y:auto;"></div>
+
+    <div class="row-actions">
+      <button class="btn-attachment" data-role="add-attachment">📎 Pièce jointe</button>
+      <button class="btn-save">Enregistrer</button>
+    </div>
+
+    <div class="attachments-container">
+      <input type="file" name="articleFiles" multiple accept="*/*" style="display:none">
+      <button type="button" data-role="add-attachment" style="display:none"></button>
+    </div>
+    <div class="attachments-list"></div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside>
+    <div class="brand">ADHELP</div>
+    <nav class="nav">
+      <a href="#" class="active" data-nav="tickets">📄 Tickets <span class="quick-add" id="quickAddTicket" style="margin-left:20px;">+</span></a>
+      <a href="#" data-nav="notifications">🔔 Notifications</a>
+      <a href="#" data-nav="kb">📚 Articles <span class="quick-add" id="quickAddArticle" style="margin-left:20px;">+</span></a>
+      <a href="#" data-nav="clients">👥 Clients</a>
+      <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+      <a href="#" data-nav="support">🧰 Prise en charge <span class="quick-add" id="quickAddSupport" style="margin-left:20px;">+</span></a>
+      <div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+      <a href="#" data-nav="reports">📈 Rapports</a>
+      <a href="#" data-nav="settings">⚙️ Paramètres</a>
+    </nav>
+  </aside>
+
+  <div class="content">
+    <header>
+      <div class="header-content">
+        <div class="apps">
+          <span class="chip" data-app="1password">1Password</span>
+          <span class="chip" data-app="splashtop">Splashtop</span>
+          <span class="chip" data-app="pcloud">Pcloud</span>
+          <span class="chip" data-app="acronis">Acronis</span>
+          <span class="chip" data-app="meet">Meet</span>
+          <span class="chip" data-app="agenda">Agenda</span>
+          <span class="chip" data-app="mail">Mail</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="ticketsView" class="view active">
+      <h1 class="header-title">Tous les tickets</h1>
+      <div class="toolbar">
+        <div class="search"><input id="searchInput" type="search" placeholder="Rechercher ... ET…"/></div>
+        <div class="filters">
+          <button class="btn" id="filtersBtn">Filtres ▾</button>
+          <div class="popover" id="filtersMenu" role="menu" aria-labelledby="filtersBtn">
+            <div style="display:flex;justify-content:flex-end;margin:4px 2px 6px">
+              <span class="x-clear" id="filtersClear" title="Effacer tous les filtres">X</span>
+            </div>
+            <div class="pop-title">URGENT</div><div id="secUrgent"></div>
+            <div class="pop-title">STATUT</div><div id="secStatus"></div>
+            <div class="pop-title">ASSIGNÉ À</div><div id="secAssignee"></div>
+            <div class="pop-title">IMPORTANT</div><div id="secImportant"></div>
+          </div>
+        </div>
+        <button class="btn" id="createBtn">Créer un ticket</button>
+      </div>
+
+      <div class="card">
+        <table aria-label="Liste des tickets">
+          <thead>
+            <tr>
+              <th class="col-ticket">Ticket</th>
+              <th class="col-subject">Sujet</th>
+              <th class="col-assignee">Assigné à</th>
+              <th class="col-status">Statut</th>
+              <th class="col-urgent">Urgent</th>
+              <th class="col-important">Important</th>
+              <th class="col-date">Créé le</th>
+            </tr>
+          </thead>
+          <tbody id="ticketsTbody">
+            <tr><td class="empty" colspan="7">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <main id="kbView" class="view">
+      <h1 class="header-title">Tous les articles</h1>
+      <div style="margin-bottom: 16px;">
+        <input type="search" id="articleSearch" placeholder="Rechercher dans les articles..." style="width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px; background: #fff; outline: none;" />
+      </div>
+      <div class="card">
+        <table aria-label="Liste des articles">
+          <thead>
+            <tr>
+              <th class="col-subject">Titre</th>
+              <th class="col-assignee">Catégorie</th>
+              <th class="col-status">Auteur</th>
+              <th class="col-attachments">PJ</th>
+            </tr>
+          </thead>
+          <tbody id="kbTbody">
+            <tr><td class="empty" colspan="4">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <main id="clientsView" class="view">
+      <h1 class="header-title">Tous les clients</h1>
+      <div class="card">
+        <table aria-label="Liste des clients">
+          <thead>
+            <tr>
+              <th class="col-ticket">ID</th>
+              <th class="col-subject">Nom</th>
+              <th class="col-assignee">Secteur</th>
+              <th class="col-status">Ville</th>
+              <th class="col-urgent">Téléphone</th>
+              <th class="col-important">Responsable</th>
+              <th class="col-date">Créé le</th>
+            </tr>
+          </thead>
+          <tbody id="clientsTbody">
+            <tr><td class="empty" colspan="7">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <main id="notificationsView" class="view">
+      <h1 class="header-title">Notifications</h1>
+      <div class="card">
+        <p style="padding:20px;text-align:center;color:var(--muted);">Aucune notification</p>
+      </div>
+    </main>
+
+    <main id="reportsView" class="view">
+      <h1 class="header-title">Rapports</h1>
+      <div class="card">
+        <p style="padding:20px;text-align:center;color:var(--muted);">Rapports à venir</p>
+      </div>
+    </main>
+
+    <main id="settingsView" class="view">
+      <h1 class="header-title">Paramètres</h1>
+      <div class="card">
+        <p style="padding:20px;text-align:center;color:var(--muted);">Paramètres à venir</p>
+      </div>
+    </main>
+
+<main id="supportView" class="view">
+  <h1 class="header-title">Prise en charge</h1>
+  <div class="card">
+    <table aria-label="Liste des prises en charge" style="width:100%;border-collapse:separate;border-spacing:0">
+      <thead>
+        <tr>
+          <th class="col-ticket">PEC</th>
+          <th class="col-subject">Client</th>
+          <th class="col-assignee">Contact</th>
+          <th class="col-status">Statut</th>
+          <th class="col-attachments">PJ</th>
+          <th class="col-date">Créé le</th>
+        </tr>
+      </thead>
+<tbody id="supportTbody">
+  <!-- 1 -->
+  <tr class="open-support"
+      data-id="PEC001"
+      data-client="PHARMACIE DE LA GARE"
+      data-contact="LEROY Isabelle"
+      data-status="en cours"
+      data-pj="3"
+      data-date="13/09/25"
+      data-heure="10:12">
+    <td>PEC001</td>
+    <td>PHARMACIE DE LA GARE</td>
+    <td><span class="contact-name">LEROY Isabelle</span></td>
+    <td><span class="badge b-yellow">en cours</span></td>
+    <td>3</td>
+    <td class="date-cell">
+      <span class="date-part">13/09/25</span>
+      <span class="time-part">10:12</span>
+    </td>
+  </tr>
+
+  <!-- 2 -->
+  <tr class="open-support"
+      data-id="PEC002"
+      data-client="TECHNOSOLUTIONS SARL"
+      data-contact="MARTIN Paul"
+      data-status="analyse"
+      data-pj="3"
+      data-date="12/09/25"
+      data-heure="16:40">
+    <td>PEC002</td>
+    <td>TECHNOSOLUTIONS SARL</td>
+    <td><span class="contact-name">MARTIN Paul</span></td>
+    <td><span class="badge">analyse</span></td>
+    <td>3</td>
+    <td class="date-cell">
+      <span class="date-part">12/09/25</span>
+      <span class="time-part">16:40</span>
+    </td>
+  </tr>
+
+  <!-- 3 -->
+  <tr class="open-support"
+      data-id="PEC003"
+      data-client="GARAGE AUTOMOBILE RENAULT"
+      data-contact="DUPONT Claire"
+      data-status="devis en attente"
+      data-pj="0"
+      data-date="11/09/25"
+      data-heure="09:25">
+    <td>PEC003</td>
+    <td>GARAGE AUTOMOBILE RENAULT</td>
+    <td><span class="contact-name">DUPONT Claire</span></td>
+    <td><span class="badge">devis en attente</span></td>
+    <td>-</td>
+    <td class="date-cell">
+      <span class="date-part">11/09/25</span>
+      <span class="time-part">09:25</span>
+    </td>
+  </tr>
+
+  <!-- 4 -->
+  <tr class="open-support"
+      data-id="PEC004"
+      data-client="AGENCE IMMOBILIÈRE PRESTIGE"
+      data-contact="BERNARD Lucas"
+      data-status="devis envoyé"
+      data-pj="0"
+      data-date="10/09/25"
+      data-heure="14:03">
+    <td>PEC004</td>
+    <td>AGENCE IMMOBILIÈRE PRESTIGE</td>
+    <td><span class="contact-name">BERNARD Lucas</span></td>
+    <td><span class="badge">devis envoyé</span></td>
+    <td>-</td>
+    <td class="date-cell">
+      <span class="date-part">10/09/25</span>
+      <span class="time-part">14:03</span>
+    </td>
+  </tr>
+
+  <!-- 5 -->
+  <tr class="open-support"
+      data-id="PEC005"
+      data-client="ÉCOLE PRIMAIRE SAINT-EXUPÉRY"
+      data-contact="LECLERC Marie"
+      data-status="devis validé"
+      data-pj="3"
+      data-date="09/09/25"
+      data-heure="11:18">
+    <td>PEC005</td>
+    <td>ÉCOLE PRIMAIRE SAINT-EXUPÉRY</td>
+    <td><span class="contact-name">LECLERC Marie</span></td>
+    <td><span class="badge b-green">devis validé</span></td>
+    <td>3</td>
+    <td class="date-cell">
+      <span class="date-part">09/09/25</span>
+      <span class="time-part">11:18</span>
+    </td>
+  </tr>
+
+  <!-- 6 -->
+  <tr class="open-support"
+      data-id="PEC006"
+      data-client="COIFFURE ÉLÉGANCE"
+      data-contact="MOREAU Chloé"
+      data-status="réparé"
+      data-pj="0"
+      data-date="08/09/25"
+      data-heure="15:52">
+    <td>PEC006</td>
+    <td>COIFFURE ÉLÉGANCE</td>
+    <td><span class="contact-name">MOREAU Chloé</span></td>
+    <td><span class="badge">réparé</span></td>
+    <td>-</td>
+    <td class="date-cell">
+      <span class="date-part">08/09/25</span>
+      <span class="time-part">15:52</span>
+    </td>
+  </tr>
+
+  <!-- 7 -->
+  <tr class="open-support"
+      data-id="PEC007"
+      data-client="LIBRAIRIE DES ARTS"
+      data-contact="GIRARD Antoine"
+      data-status="terminé"
+      data-pj="0"
+      data-date="07/09/25"
+      data-heure="10:05">
+    <td>PEC007</td>
+    <td>LIBRAIRIE DES ARTS</td>
+    <td><span class="contact-name">GIRARD Antoine</span></td>
+    <td><span class="badge">terminé</span></td>
+    <td>-</td>
+    <td class="date-cell">
+      <span class="date-part">07/09/25</span>
+      <span class="time-part">10:05</span>
+    </td>
+  </tr>
+</tbody>
+    </table>
+  </div>
+</main>
+
+  </div>
+</div>
+
+<!-- Modal Ticket -->
+<div class="modal-overlay" id="ticketModal" style="display:none;">
+  <div class="modal-ticket">
+    <div class="modal-header">
+      <h1><span id="ticketId">T002</span></h1>
+      <div class="toolbar-buttons">
+        <button class="toolbar-btn" data-action="1password">1Password</button>
+        <button class="toolbar-btn" data-action="splashtop">Splashtop</button>
+        <button class="toolbar-btn" data-action="pcloud">Pcloud</button>
+        <button class="toolbar-btn" data-action="acronis">Acronis</button>
+        <button class="toolbar-btn" data-action="meet">Meet</button>
+        <button class="toolbar-btn" data-action="mail">Mail</button>
+      </div>
+      <button class="close-btn" id="closeTicketModal">×</button>
+    </div>
+
+    <div class="row-client-contact">
+        <select class="select-client" id="ticketClient">
+          <option value="">Sélectionner un client</option>
+        </select>
+      <select class="select-contact" id="ticketContact">
+        <option value="">Nom du contact</option>
+      </select>
+    <div class="contact-actions">
+  <button class="contact-btn clear" data-action="remove" title="Désélectionner">×</button>
+  <button class="contact-btn" id="ticketContactPhone"  title="Téléphone fixe">📞</button>
+  <button class="contact-btn" id="ticketContactMobile" title="Mobile">📱</button>
+    </div>
+    </div>
+
+    <div class="row-subject-urgent">
+      <input class="input-subject" id="ticketSubject" placeholder="Sujet du ticket" type="text"/>
+      <label class="urgent-checkbox"><input id="ticketUrgent" type="checkbox"/><span class="urgent-text">Urgent</span></label>
+    </div>
+
+    <div class="row-assign-status">
+      <select class="select-assignee" id="ticketAssignee">
+        <option value="">Assigné à</option>
+        <option>Guillaume</option><option>Samuel</option><option>Jean</option><option>Léa</option><option>Sophie</option>
+      </select>
+      <select class="select-status" id="ticketStatus">
+        <option value="nouveau">Nouveau</option>
+        <option value="non-affecte">Non affecté</option>
+        <option value="en-cours">En cours</option>
+        <option value="resolu">Résolu</option>
+        <option value="retour-client">Retour client</option>
+      </select>
+    </div>
+
+    <div style="display: flex; gap: 15px; align-items: center; padding: 2px 12px; margin-bottom: 2px;">
+      <button type="button" id="btnBoldTicket" style="background: none; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; cursor: pointer; font-weight: bold;">B</button>
+      <button type="button" id="btnUnderlineTicket" style="background: none; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; cursor: pointer; text-decoration: underline;">U</button>
+      <button type="button" id="btnFontSizeTicket" style="background: none; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; cursor: pointer;">18px</button>
+      <button type="button" id="btnTextColorTicket" style="background: none; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; cursor: pointer; color: red;">Rouge</button>
+    </div>
+
+    <div class="textarea-description" id="ticketDescription"
+         contenteditable="true"
+         data-placeholder="Description du problème..."
+         style="min-height: 300px;"></div>
+
+  <div class="row-actions">
+  <button class="btn-attachment" data-role="add-attachment">📎 Pièce jointe</button>
+  <button class="btn-time" id="btnTimeManual">⏱ Temps</button>
+  <button class="btn-suggestions" id="btnSuggestions">💡 Suggestions</button>
+  <label class="checkbox-item"><input id="ticketRappel" type="checkbox"/><span class="checkbox-text rappel">Rappel</span></label>
+  <label class="checkbox-item"><input id="ticketImportant" type="checkbox"/><span class="checkbox-text important">Important</span></label>
+  <label class="checkbox-item"><input id="ticketBillable" type="checkbox"/><span class="checkbox-text billable">Facturable</span></label>
+  <button class="btn-save" id="btnSaveTicket">Enregistrer</button>
+</div>
+
+    <div class="attachments-container"></div>
+    <div class="attachments-list" id="attachmentsList"></div>
+
+    <div class="history-trigger" style="margin-top:10px; display:flex; justify-content:flex-end;">
+      <button class="btn" id="btnOpenTicketHistory" type="button">Historique</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Prise en charge -->
+<div class="modal-overlay" id="supportModal" style="display:none;">
+  <div class="modal-ticket">
+    <div class="modal-header">
+      <h1 id="supportTitle">PECxxx</h1>
+      <strong id="supportCreator" class="creator-field">prénomdutech</strong>
+      <button class="close-btn" id="closeSupportModal">×</button>
+    </div>
+
+<div class="row-client-contact">
+  <!-- ⬇️ Nouveau champ statut_pec -->
+  <select class="select-status" id="statut_pec">
+    <option value="en cours" selected>en cours</option>
+    <option value="analyse">analyse</option>
+    <option value="devis en attente">devis en attente</option>
+    <option value="devis envoyé">devis envoyé</option>
+    <option value="devis validé">devis validé</option>
+    <option value="réparé">réparé</option>
+    <option value="terminé">terminé</option>
+  </select>
+
+  <select class="select-client" id="supportClient">
+    <option value="">Sélectionner un client</option>
+  </select>
+  <select class="select-contact" id="supportContact">
+    <option value="">Nom du contact</option>
+  </select>
+<div class="contact-actions">
+  <button class="contact-btn clear" data-action="remove" title="Désélectionner">×</button>
+  <button class="contact-btn" id="supportContactPhone"  title="Téléphone fixe">📞</button>
+  <button class="contact-btn" id="supportContactMobile" title="Mobile">📱</button>
+  <button class="contact-btn" id="supportContactEmail" title="Email">📧</button>
+</div>
+</div>
+
+    <!-- LIGNE TRIPLE: Matériel / N° de série / Mot de passe + cadenas -->
+    <div class="support-row">
+      <input class="input-subject" id="supportMaterial" placeholder="Matériel" type="text" required aria-required="true"/>
+      <input class="input-subject" id="supportSerial" placeholder="N° de série" type="text" required aria-required="true"/>
+      <div class="pwd-wrap">
+        <input class="input-subject" id="supportPassword" placeholder="Mot de passe" type="text"/>
+        <button type="button" id="toggleSupportLock" class="contact-btn" title="Verrouiller le mot de passe" aria-pressed="false">🔓</button>
+      </div>
+    </div>
+
+    <!-- Textareas (hors de la ligne triple) -->
+    <textarea class="textarea-description" id="supportAccessories" placeholder="Accessoires confiés..."></textarea>
+    <textarea class="textarea-description" id="supportClientRequest" placeholder="Demande formulée par le client..."></textarea>
+    <textarea class="textarea-description" id="supportAction" placeholder="Action réalisée..."></textarea>
+
+    <div class="row-actions">
+      <div style="display:flex;align-items:center;gap:15px;">
+        <span style="font-weight:600;color:#0b121e;">Devis ?</span>
+        <div style="display:flex;gap:8px;">
+          <label class="checkbox-item"><input type="radio" name="supportQuote" value="oui"/><span class="checkbox-text">Oui</span></label>
+          <label class="checkbox-item"><input type="radio" name="supportQuote" value="non"/><span class="checkbox-text">Non</span></label>
+        </div>
+      </div>
+      <button class="btn-cancel">Annuler</button>
+      <button class="btn-save">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts principaux (ordre corrigé) -->
+<!-- 1) settings d'abord : expose helpers + contactsData -->
+<script src="js/settings.js"></script>
+
+<!-- 2) le reste de l'app -->
+<script src="js/app.js"></script>
+<script src="js/sidebar-nav.js"></script>
+<script src="js/attachments-manager.js"></script>
+<script src="js/header-actions.js"></script>
+<script src="js/knowledge-base.js"></script>
+<script src="js/suggestions.js"></script>
+
+<!-- Script formatage Article -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const editor = document.getElementById('articleContent');
+  const btnBold = document.getElementById('btnBold');
+  const btnUnderline = document.getElementById('btnUnderline');
+  const btnFontSize = document.getElementById('btnFontSize');
+  const btnTextColor = document.getElementById('btnTextColor');
+
+  function selectionIn(el) {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return false;
+    let node = sel.anchorNode;
+    while (node) { if (node === el) return true; node = node.parentNode; }
+    return false;
+  }
+  function exec(el, cmd) {
+    if (!selectionIn(el)) { alert("Veuillez sélectionner du texte dans le contenu de l'article"); return; }
+    document.execCommand(cmd, false, null);
+    el.focus();
+  }
+  function wrap(el, style) {
+    if (!selectionIn(el)) { alert("Veuillez sélectionner du texte dans le contenu de l'article"); return; }
+    const sel = window.getSelection(); if (!sel.rangeCount) return;
+    const range = sel.getRangeAt(0).cloneRange(); if (range.collapsed) return;
+    const span = document.createElement('span'); span.setAttribute('style', style);
+    span.appendChild(range.extractContents());
+    range.insertNode(span);
+    sel.removeAllRanges(); const after = document.createRange(); after.setStartAfter(span); after.collapse(true); sel.addRange(after);
+    el.focus();
+  }
+
+  btnBold && btnBold.addEventListener('click', () => exec(editor, 'bold'));
+  btnUnderline && btnUnderline.addEventListener('click', () => exec(editor, 'underline'));
+  btnFontSize && btnFontSize.addEventListener('click', () => wrap(editor, 'font-size:18px;'));
+  btnTextColor && btnTextColor.addEventListener('click', () => wrap(editor, 'color:red;'));
+});
+</script>
+
+<!-- Script formatage Ticket -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const editor = document.getElementById('ticketDescription');
+  const b = id => document.getElementById(id);
+  const btnBold = b('btnBoldTicket');
+  const btnUnderline = b('btnUnderlineTicket');
+  const btnFontSize = b('btnFontSizeTicket');
+  const btnTextColor = b('btnTextColorTicket');
+
+  function selectionIn(el) {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return false;
+    let node = sel.anchorNode;
+    while (node) { if (node === el) return true; node = node.parentNode; }
+    return false;
+  }
+  function exec(el, cmd) {
+    if (!selectionIn(el)) { alert("Veuillez sélectionner du texte dans la description du ticket"); return; }
+    document.execCommand(cmd, false, null);
+    el.focus();
+  }
+  function wrap(el, style) {
+    if (!selectionIn(el)) { alert("Veuillez sélectionner du texte dans la description du ticket"); return; }
+    const sel = window.getSelection(); if (!sel.rangeCount) return;
+    const range = sel.getRangeAt(0).cloneRange(); if (range.collapsed) return;
+    const span = document.createElement('span'); span.setAttribute('style', style);
+    span.appendChild(range.extractContents());
+    range.insertNode(span);
+    sel.removeAllRanges(); const after = document.createRange(); after.collapse(true); sel.addRange(after);
+    el.focus();
+  }
+
+  btnBold && btnBold.addEventListener('click', () => exec(editor, 'bold'));
+  btnUnderline && btnUnderline.addEventListener('click', () => exec(editor, 'underline'));
+  btnFontSize && btnFontSize.addEventListener('click', () => wrap(editor, 'font-size:18px;'));
+  btnTextColor && btnTextColor.addEventListener('click', () => wrap(editor, 'color:red;'));
+});
+</script>
+
+<!-- Modale Historique Ticket (sans header) -->
+<div class="modal-overlay" id="ticketHistoryModal" style="display:none;">
+  <div class="modal-ticket" style="position:relative; padding-top:12px;">
+    <button class="close-btn" id="closeTicketHistoryModal" type="button" aria-label="Fermer"
+            style="position:absolute; top:6px; right:10px;">×</button>
+
+    <div id="ticketHistoryList"
+         style="max-height:70vh; overflow:auto; padding: 8px 4px 12px; margin-top:10px;"></div>
+
+    <div id="ticketResolutionSummary"
+         style="margin-top:8px; font-weight:600; color:#0b121e;"></div>
+  </div>
+</div>
+
+<script src="js/ticket-history.js"></script>
+<script src="js/sync/sync.state.js"></script>
+<script src="js/sync/ksuite.adapter.js"></script>
+
+<!-- Liaisons lignes PEC -> modale Prise en charge (version IDs, icônes OK) -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const tbody = document.getElementById('supportTbody');
+  if (!tbody) return;
+
+  const norm = (s) =>
+    (s || '')
+      .toString()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .toLowerCase()
+      .trim();
+
+  tbody.addEventListener('click', async (e) => {
+    if (e.target.closest('a[href]')) return;
+    const tr = e.target.closest('tr.open-support');
+    if (!tr) return;
+
+    document.getElementById('quickAddSupport')?.click();
+
+    const idRow      = tr.dataset.id || '';
+    const clientName = tr.dataset.client || '';
+    const contactTxt = tr.dataset.contact || '';
+    const status     = tr.dataset.status || '';
+
+    const getCC = window.ADHELP?.getClientsAndContacts;
+    const [clients, contacts] = await (getCC ? getCC() : Promise.resolve([[], []]));
+
+    const cli = clients.find(c => norm(c.nom) === norm(clientName));
+    const clientId = cli ? String(cli.id) : '';
+
+    const contact = contacts.find(ct =>
+      String(ct.clientId) === String(clientId) &&
+      norm(`${ct.nom} ${ct.prenom}`) === norm(contactTxt)
+    );
+    const contactId = contact ? String(contact.id) : '';
+
+    const titleEl    = document.getElementById('supportTitle');
+    const clientSel  = document.getElementById('supportClient');
+    const contactSel = document.getElementById('supportContact');
+    const statusSel  = document.getElementById('statut_pec');
+
+    if (titleEl) titleEl.textContent = idRow;
+
+    if (clientSel) {
+      clientSel.value = clientId || '';
+      clientSel.dispatchEvent(new Event('change'));
+    }
+
+    if (contactSel) {
+      if (contactId) {
+        contactSel.value = contactId;
+        contactSel.dispatchEvent(new Event('change'));
+      } else {
+        const opt = Array.from(contactSel.options).find(o => norm(o.textContent) === norm(contactTxt));
+        if (opt) {
+          contactSel.value = opt.value;
+          contactSel.dispatchEvent(new Event('change'));
+        } else {
+          if (window.ADHELP?.populateAllContacts) {
+            window.ADHELP.populateAllContacts(contactSel, contacts);
+            const alt = Array.from(contactSel.options).find(o => norm(o.textContent) === norm(contactTxt));
+            if (alt) {
+              contactSel.value = alt.value;
+              contactSel.dispatchEvent(new Event('change'));
+            }
+          }
+        }
+      }
+    }
+
+    if (statusSel && Array.from(statusSel.options).some(o => o.value === status)) {
+      statusSel.value = status;
+    }
+  });
+});
+</script>
+</body>
+</html>

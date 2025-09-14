@@ -1,0 +1,227 @@
+{
+  "articles": [
+    {
+      "id": "A001",
+      "title": "Résoudre les problèmes de connexion WiFi",
+      "category": "Réseau",
+      "author": "Guillaume",
+      "content": "Guide complet pour diagnostiquer et résoudre les problèmes de connexion WiFi sur différents appareils.",
+      "attachments": []
+    },
+    {
+      "id": "A002",
+      "title": "Installation d'une imprimante réseau HP",
+      "category": "Matériel",
+      "author": "Samuel",
+      "content": "Procédure détaillée pour installer et configurer une imprimante HP LaserJet sur le réseau d'entreprise.",
+      "attachments": [
+        { "name": "hp-setup-1.pdf", "type": "application/pdf" },
+        { "name": "hp-setup-2.pdf", "type": "application/pdf" }
+      ]
+    },
+    {
+      "id": "A003",
+      "title": "Configuration antivirus Bitdefender",
+      "category": "Sécurité",
+      "author": "Jean",
+      "content": "Paramétrage optimal de Bitdefender GravityZone pour les environnements professionnels.",
+      "attachments": [
+        { "name": "bitdefender-policy.png", "type": "image/png" }
+      ]
+    },
+    {
+   "id": "A004",
+  "title": "Sauvegarde automatique avec Acronis",
+  "category": "Procédure",
+  "author": "Guillaume",
+  "content": "Mise en place d'une stratégie de sauvegarde automatique avec Acronis Cyber Backup.",
+  "attachments": [
+    {
+      "name": "doc-acronis.pdf",
+      "type": "application/pdf",
+      "extractedText": "… procédure standard … BRANDFLOW … sauvegarde planifiée …"
+    },
+    {
+      "name": "A004-brandflow.txt",
+      "type": "text/plain",
+      "url": "data/mock-attachments/A004-brandflow.txt",
+      "extractedText": "brandflow sauvegarde incrémentale planification retention acronis"
+        }
+      ]
+    },
+    {
+  "id": "A005",
+  "title": "Intervention bloc opératoire",
+  "category": "Sécurité",
+  "author": "Samuel",
+  "content": "Consignes d'intervention et d’isolement réseau dans un bloc opératoire.",
+  "attachments": [
+    {
+      "name": "note-technique.png",
+      "type": "image/png",
+      "extractedText": "… accès restreint … NEUROCHIR … protocole d’urgence …"
+    },
+    {
+      "name": "A005-neurochir.txt",
+      "type": "text/plain",
+      "url": "data/mock-attachments/A005-neurochir.txt",
+      "extractedText": "neurochir accès restreint isolement réseau bloc opératoire"
+        }
+      ]
+    },
+    {
+      "id": "A006",
+      "title": "Remplacement disque dur défaillant",
+      "category": "Matériel",
+      "author": "Jean",
+      "content": "Procédure de remplacement d'un disque dur et migration des données.",
+      "attachments": [
+        { "name": "migration-checklist.pdf", "type": "application/pdf" }
+      ]
+    },
+    {
+      "id": "A007",
+      "title": "Configuration VPN FortiClient",
+      "category": "Réseau",
+      "author": "Guillaume",
+      "content": "Guide de configuration du client VPN FortiClient pour accès distant sécurisé.",
+      "attachments": [
+        { "name": "forticlient-guide.pdf", "type": "application/pdf" },
+        { "name": "vpn-profile.json", "type": "application/json" }
+      ]
+    },
+    {
+      "id": "A008",
+      "title": "Mise à jour Office 365",
+      "category": "Logiciel",
+      "author": "Samuel",
+      "content": "Procédure de mise à jour et migration vers Office 365 en entreprise.",
+      "attachments": []
+    },
+    {
+      "id": "A009",
+      "title": "Politique de mots de passe sécurisés",
+      "category": "Sécurité",
+      "author": "Jean",
+      "content": "Définition et mise en place d'une politique de mots de passe robuste.",
+      "attachments": [
+        { "name": "password-policy.docx", "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
+      ]
+    },
+    {
+      "id": "A010",
+      "title": "Nettoyage et maintenance PC",
+      "category": "Procédure",
+      "author": "Guillaume",
+      "content": "Checklist complète pour la maintenance préventive des postes de travail.",
+      "attachments": []
+    },
+    {
+      "id": "A011",
+      "title": "Installation serveur Windows Server 2022",
+      "category": "Logiciel",
+      "author": "Samuel",
+      "content": "Guide d'installation et configuration initiale de Windows Server 2022.",
+      "attachments": [
+        { "name": "ws2022-install-1.pdf", "type": "application/pdf" },
+        { "name": "ws2022-install-2.pdf", "type": "application/pdf" },
+        { "name": "ws2022-roles.png", "type": "image/png" },
+        { "name": "ws2022-postinstall.txt", "type": "text/plain" }
+      ]
+    },
+    {
+      "id": "A012",
+      "title": "Diagnostic panne alimentation PC",
+      "category": "Matériel",
+      "author": "Jean",
+      "content": "Méthodes de diagnostic des pannes d'alimentation sur PC de bureau.",
+      "attachments": [
+        { "name": "psu-test-steps.pdf", "type": "application/pdf" },
+        { "name": "psu-pictures.png", "type": "image/png" }
+      ]
+    },
+    {
+      "id": "A013",
+      "title": "Configuration firewall pfSense",
+      "category": "Sécurité",
+      "author": "Guillaume",
+      "content": "Paramétrage d'un firewall pfSense pour PME avec règles de sécurité.",
+      "attachments": [
+        { "name": "pfsense-rules.json", "type": "application/json" },
+        { "name": "pfsense-nat.png", "type": "image/png" },
+        { "name": "pfsense-doc.pdf", "type": "application/pdf" }
+      ]
+    },
+    {
+      "id": "A014",
+      "title": "Optimisation performance Windows",
+      "category": "Procédure",
+      "author": "Samuel",
+      "content": "Techniques d'optimisation pour améliorer les performances de Windows.",
+      "attachments": [
+        { "name": "perf-tips.pdf", "type": "application/pdf" }
+      ]
+    },
+    {
+      "id": "A015",
+      "title": "Récupération données disque endommagé",
+      "category": "Logiciel",
+      "author": "Jean",
+      "content": "Utilisation d'outils de récupération pour disques durs endommagés.",
+      "attachments": []
+    },
+    {
+      "id": "A016",
+      "title": "Installation switch réseau manageable",
+      "category": "Matériel",
+      "author": "Guillaume",
+      "content": "Configuration d'un switch réseau manageable avec VLAN et QoS.",
+      "attachments": [
+        { "name": "switch-vlan.pdf", "type": "application/pdf" },
+        { "name": "switch-qos.pdf", "type": "application/pdf" }
+      ]
+    },
+    {
+      "id": "A017",
+      "title": "Sécurisation serveur Linux Ubuntu",
+      "category": "Sécurité",
+      "author": "Samuel",
+      "content": "Durcissement sécuritaire d'un serveur Ubuntu Server en production.",
+      "attachments": [
+        { "name": "ubuntu-hardening.md", "type": "text/markdown" }
+      ]
+    },
+    {
+      "id": "A018",
+      "title": "Procédure de clôture mensuelle",
+      "category": "Procédure",
+      "author": "Jean",
+      "content": "Checklist des tâches à effectuer en fin de mois pour la maintenance.",
+      "attachments": []
+    },
+    {
+      "id": "A019",
+      "title": "Migration Exchange vers Office 365",
+      "category": "Logiciel",
+      "author": "Guillaume",
+      "content": "Planification et exécution d'une migration Exchange vers le cloud.",
+      "attachments": [
+        { "name": "exchange-mig-1.pdf", "type": "application/pdf" },
+        { "name": "exchange-mig-2.pdf", "type": "application/pdf" },
+        { "name": "exchange-checklist.xlsx", "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+        { "name": "exchange-mx.png", "type": "image/png" },
+        { "name": "post-mig.txt", "type": "text/plain" }
+      ]
+    },
+    {
+      "id": "A020",
+      "title": "Remplacement onduleur UPS",
+      "category": "Matériel",
+      "author": "Samuel",
+      "content": "Procédure de remplacement d'un onduleur UPS sans interruption de service.",
+      "attachments": [
+        { "name": "ups-replace.pdf", "type": "application/pdf" }
+      ]
+    }
+  ]
+}

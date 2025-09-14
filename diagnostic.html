@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ADHELP — Diagnostic</title>
+  <style>
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0b121e;color:#e5e7eb}
+    .wrap{max-width:900px;margin:0 auto;padding:24px}
+    h1{font-size:22px;margin:0 0 8px}
+    .ok{background:#065f46;padding:10px 12px;border-radius:8px;margin:12px 0;display:inline-block}
+    .card{background:#111827;border:1px solid #374151;border-radius:10px;padding:14px 16px;margin:12px 0}
+    code,pre{font-family:ui-monospace,Menlo,Consolas,monospace}
+    .muted{color:#9ca3af}
+    .btn{background:#2563eb;border:none;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .btn:disabled{opacity:.5;cursor:default}
+    .err{background:#7f1d1d}
+    #errors{white-space:pre-wrap}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🔎 ADHELP — Page de diagnostic</h1>
+    <div class="card">
+      <div>Heure chargée: <strong id="ts"></strong></div>
+      <div>Version navigateur: <span class="muted" id="ua"></span></div>
+    </div>
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px">Vérifications rapides</h2>
+      <ol>
+        <li>Ce fichier se charge-t-il correctement ? <span class="ok" id="ok-load">OK</span></li>
+        <li>Test accès JS/CSS statiques: <button class="btn" id="btnFetch">Tester</button>
+          <span id="fetchResult" class="muted"></span>
+        </li>
+        <li>Erreurs JavaScript attrapées (si présentes) :</li>
+        <pre id="errors" class="card err" style="display:none"></pre>
+      </ol>
+    </div>
+    <div class="card">
+      <p>Si cette page s'affiche, le serveur est opérationnel. La page blanche d'index vient
+      généralement d'une <em>erreur JavaScript</em> au chargement (syntaxe, balise &lt;script&gt; non fermée,
+      fichier manquant, CORS) ou d'un <em>chemin de fichier</em> invalide.</p>
+      <p>Ensuite, renvoyez-moi la première ligne d'erreur listée ci-dessus ou faites une capture.
+      Je pourrai corriger immédiatement.</p>
+    </div>
+  </div>
+  <script>
+    // horodatage + UA
+    document.getElementById('ts').textContent = new Date().toLocaleString('fr-FR');
+    document.getElementById('ua').textContent = navigator.userAgent;
+    // attrape-erreurs
+    const box = document.getElementById('errors');
+    function showErr(msg){
+      box.style.display = 'block';
+      box.textContent += (box.textContent ? '\n' : '') + msg;
+    }
+    window.addEventListener('error', function(e){
+      showErr('[window.onerror] ' + (e.message || e.error || 'Erreur') + 
+              (e.filename ? '\n  fichier: ' + e.filename : '') + 
+              (e.lineno ? '\n  ligne: ' + e.lineno : ''));
+    });
+    window.addEventListener('unhandledrejection', function(e){
+      showErr('[promise] ' + (e.reason && (e.reason.stack || e.reason.message) || e.reason));
+    });
+    // petit test de fetch de fichiers statiques à côté (app.js + css s'ils existent)
+    const btn = document.getElementById('btnFetch');
+    const out = document.getElementById('fetchResult');
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      out.textContent = '…';
+      const targets = ['js/app.js','js/ticket-modal.js','js/header-actions.js','js/knowledge-base.js','js/persistence.js','js/support-devis-switch.safe.js','js/pdf-front.js'];
+      const results = await Promise.all(targets.map(async t => {
+        try{
+          const r = await fetch(t, {cache:'no-store'});
+          return t + ': ' + (r.ok ? 'OK ('+r.status+')' : '❌ ' + r.status);
+        }catch(err){
+          return t + ': ❌ ' + (err.message || err);
+        }
+      }));
+      out.textContent = '\n' + results.join('\n');
+    });
+  </script>
+</body>
+</html>

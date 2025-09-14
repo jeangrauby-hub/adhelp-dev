@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ADHELP — diagnostic</title>
+<style>
+  body{font:14px/1.45 system-ui,Segoe UI,Roboto,sans-serif;padding:20px}
+  h1{margin:0 0 10px}
+  .ok{color:#0a7}
+  .ko{color:#c30}
+  code{background:#f6f8fa;padding:2px 4px;border-radius:4px}
+  .card{border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin:10px 0}
+  .grid{display:grid;grid-template-columns:160px 1fr;gap:8px}
+  pre{white-space:pre-wrap;background:#f6f8fa;padding:10px;border-radius:8px}
+</style>
+<h1>🩺 Diagnostic hébergement</h1>
+<div class="card">
+  <div class="grid">
+    <div>URL actuelle</div><div><code id="loc"></code></div>
+    <div>User-Agent</div><div><code id="ua"></code></div>
+    <div>Heure</div><div id="time"></div>
+  </div>
+</div>
+
+<div class="card"><strong>Tests de fichiers (GET):</strong>
+  <ul id="tests"></ul>
+</div>
+
+<div class="card"><strong>Console</strong>
+  <pre id="log"></pre>
+</div>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  $("#loc").textContent = location.href;
+  $("#ua").textContent  = navigator.userAgent;
+  $("#time").textContent= new Date().toLocaleString();
+
+  const logEl = $("#log");
+  function println(...args){ logEl.textContent += args.join(" ") + "\n"; }
+
+  const targets = [
+    "/", "/index.html", "/firebase.json",
+    "/js/app.js", "/js/ticket-modal.js", "/js/header-actions.js",
+    "/js/knowledge-base.js", "/js/persistence.js", "/js/pdf-front.js"
+  ];
+
+  const ul = $("#tests");
+
+  function li(line){ const el=document.createElement('li'); el.innerHTML=line; ul.appendChild(el); }
+
+  async function probe(path){
+    const url = path;
+    const t0 = performance.now();
+    try{
+      const res = await fetch(url, {cache:"no-store"});
+      const dt = (performance.now()-t0).toFixed(0);
+      const ct = res.headers.get("content-type") || "";
+      if(res.ok){
+        li(`✅ <code>${url}</code> → ${res.status} (${dt}ms, ${ct})`);
+      }else{
+        li(`⚠️ <code>${url}</code> → ${res.status} (${dt}ms)`);
+      }
+    }catch(e){
+      li(`❌ <code>${url}</code> → erreur réseau: ${e}`);
+    }
+  }
+
+  (async()=>{
+    println("[diag] Démarrage", new Date().toISOString());
+    for(const t of targets){ await probe(t); }
+    println("[diag] Terminé");
+  })();
+})();
+</script>
+</html>

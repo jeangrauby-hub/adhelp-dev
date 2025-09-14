@@ -1,0 +1,43 @@
+{
+  "sessions": [
+    {
+      "id": "SESS-001",
+      "userId": "USR-003",
+      "userName": "Jean GRAUBY",
+      "ip": "192.168.1.100",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "browser": "Chrome 120.0",
+      "os": "Windows 10",
+      "loginTime": 1704067200000,
+      "lastActivity": 1704070500000,
+      "isActive": true,
+      "location": "Toulouse, France"
+    },
+    {
+      "id": "SESS-002",
+      "userId": "USR-001", 
+      "userName": "Guillaume DEBORDE",
+      "ip": "192.168.1.101",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "browser": "Chrome 120.0",
+      "os": "macOS 10.15",
+      "loginTime": 1704063600000,
+      "lastActivity": 1704070200000,
+      "isActive": true,
+      "location": "Lyon, France"
+    },
+    {
+      "id": "SESS-003",
+      "userId": "USR-002",
+      "userName": "Samuel VINCENT",
+      "ip": "192.168.1.102",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0",
+      "browser": "Firefox 121.0",
+      "os": "Windows 10",
+      "loginTime": 1704060000000,
+      "lastActivity": 1704069900000,
+      "isActive": true,
+      "location": "Marseille, France"
+    }
+  ]
+}
