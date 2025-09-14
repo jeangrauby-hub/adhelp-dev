@@ -372,35 +372,43 @@ class AttachmentsManager {
     newList.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      
-// Gestion du clic sur l'icône de PJ pour ouvrir/télécharger
-const attachmentItem = e.target.closest('.attachment-item-mini');
-if (attachmentItem && !e.target.closest('.btn-remove-mini')) {
-  const attachmentId = attachmentItem.dataset.id;
-  const attachment = this.attachments.find(a => a.id === attachmentId);
-  if (attachment) {
-    if (attachment.weblocUrl) {
-      window.open(attachment.weblocUrl, '_blank');
-    } else if (attachment.downloadUrl) {
-      if (attachment.previewable) {
-        // Prévisualisable → on ouvre dans le navigateur
-        window.open(attachment.downloadUrl, '_blank');
-      } else {
-        // Non prévisualisable → on force le téléchargement avec le bon nom
-        const a = document.createElement('a');
-        a.href = attachment.downloadUrl;
-        const fileName =
-          attachment.name ||
-          (attachment.downloadUrl ? attachment.downloadUrl.split('/').pop().split('?')[0] : 'fichier');
-        a.setAttribute('download', fileName);
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+
+      // ✅ SUPPRESSION : clic sur la croix
+      const removeBtn = e.target.closest('.btn-remove-mini');
+      if (removeBtn) {
+        const id = removeBtn.getAttribute('data-id') || removeBtn.closest('.attachment-item-mini')?.dataset.id;
+        if (id) this.removeAttachment(id);
+        return;
       }
-    }
-  }
-  return;
-}
+      
+      // Gestion du clic sur l'icône de PJ pour ouvrir/télécharger
+      const attachmentItem = e.target.closest('.attachment-item-mini');
+      if (attachmentItem && !e.target.closest('.btn-remove-mini')) {
+        const attachmentId = attachmentItem.dataset.id;
+        const attachment = this.attachments.find(a => a.id === attachmentId);
+        if (attachment) {
+          if (attachment.weblocUrl) {
+            window.open(attachment.weblocUrl, '_blank');
+          } else if (attachment.downloadUrl) {
+            if (attachment.previewable) {
+              // Prévisualisable → on ouvre dans le navigateur
+              window.open(attachment.downloadUrl, '_blank');
+            } else {
+              // Non prévisualisable → on force le téléchargement avec le bon nom
+              const a = document.createElement('a');
+              a.href = attachment.downloadUrl;
+              const fileName =
+                attachment.name ||
+                (attachment.downloadUrl ? attachment.downloadUrl.split('/').pop().split('?')[0] : 'fichier');
+              a.setAttribute('download', fileName);
+              document.body.appendChild(a);
+              a.click();
+              a.remove();
+            }
+          }
+        }
+        return;
+      }
     });
   }
 
@@ -584,7 +592,7 @@ if (attachmentItem && !e.target.closest('.btn-remove-mini')) {
     
     this.attachments = [];
     this.currentTicketId = null;
-    this.isDraft = true;
+       this.isDraft = true;
     this.renderAttachments();
     this.updateQuota();
   }
