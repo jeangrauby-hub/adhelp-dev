@@ -6,11 +6,28 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+/storage/logs/*
 
+# Dépendances
 node_modules
+/vendor/
+
+# Builds / Dist
 dist
 dist-ssr
-*.local
+
+# Env files (secrets à ne jamais pousser)
+.env
+.env.local
+.env.*.local
+
+# Backups locaux
+/backups/
+/save/
+/Users/jean/projet/logs/*
+
+# Cache Laravel
+/bootstrap/cache/*
 
 # Editor directories and files
 .vscode/*
@@ -22,4 +39,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.env
