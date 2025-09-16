@@ -9,7 +9,11 @@
     "serve": "live-server --port=5173 --open=index.html --watch=.",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["tickets", "helpdesk", "support"],
+  "keywords": [
+    "tickets",
+    "helpdesk",
+    "support"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

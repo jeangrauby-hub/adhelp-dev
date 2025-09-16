@@ -1,0 +1,39 @@
+services:
+  api:
+    image: webdevops/php-nginx:8.2
+    ports:
+      - "${API_PORT:-8000}:80"
+    environment:
+      WEB_DOCUMENT_ROOT: /app/public
+      PHP_DISPLAY_ERRORS: "1"
+    volumes:
+      - ./api:/app
+    working_dir: /app
+    depends_on:
+      - db
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-adhelp}
+      POSTGRES_USER: ${DB_USERNAME:-adhelp}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-adhelp}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+volumes:
+  db_data:
